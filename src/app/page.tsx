@@ -404,8 +404,8 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right Graphic Mockup (Sabit yükseklikli, sıfır zıplamalı ve önceden yüklenen görsel geçişi) */}
-            <div className="lg:col-span-7 p-2 sm:p-3 lg:p-4 lg:pr-5 2xl:p-6 2xl:pr-8 flex items-center justify-end relative h-[360px] sm:h-[440px] lg:h-[500px] 2xl:h-[580px] w-full">
+            {/* Right Graphic Mockup (Her yönden eşit boşluklu, kusursuz hizalama) */}
+            <div className="lg:col-span-7 relative h-[380px] sm:h-[460px] lg:h-[530px] 2xl:h-[610px] w-full">
               {SLIDES.map((slide, index) => {
                 const isCurrent = index === activeSlide;
                 return (
@@ -417,7 +417,7 @@ export default function LandingPage() {
                       scale: isCurrent ? 1 : 0.97,
                     }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className={`absolute inset-0 p-2 sm:p-3 lg:p-4 lg:pr-5 2xl:p-6 2xl:pr-8 flex items-center justify-end ${
+                    className={`absolute inset-0 p-5 sm:p-7 lg:p-8 2xl:p-9 flex items-center justify-end ${
                       isCurrent ? "pointer-events-auto z-10" : "pointer-events-none z-0"
                     }`}
                   >
@@ -425,7 +425,7 @@ export default function LandingPage() {
                       src={slide.image}
                       alt={slide.title}
                       loading="eager"
-                      className="w-full h-auto max-h-[360px] sm:max-h-[440px] lg:max-h-[500px] 2xl:max-h-[580px] object-contain object-right rounded-[18px] sm:rounded-[24px] lg:rounded-[36px] 2xl:rounded-[50px] drop-shadow-2xl"
+                      className="h-full w-auto max-w-full object-contain rounded-[16px] sm:rounded-[22px] lg:rounded-[30px] 2xl:rounded-[40px] drop-shadow-2xl"
                     />
                   </motion.div>
                 );
