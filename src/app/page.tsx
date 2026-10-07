@@ -322,9 +322,10 @@ export default function LandingPage() {
                 {/* Up Arrow (Önceki Slide) */}
                 <button
                   type="button"
-                  onClick={() =>
-                    setActiveSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length)
-                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+                  }}
                   className="w-7 h-7 rounded-full flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition active:scale-90"
                   aria-label="Önceki özellik"
                 >
@@ -338,7 +339,11 @@ export default function LandingPage() {
                     return (
                       <button
                         key={slide.id}
-                        onClick={() => setActiveSlide(index)}
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setActiveSlide(index);
+                        }}
                         className="group flex items-center justify-center p-0.5 focus:outline-none"
                         aria-label={`Slide ${index + 1}: ${slide.title}`}
                       >
@@ -357,9 +362,10 @@ export default function LandingPage() {
                 {/* Down Arrow (Sonraki Slide) */}
                 <button
                   type="button"
-                  onClick={() =>
-                    setActiveSlide((prev) => (prev + 1) % SLIDES.length)
-                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveSlide((prev) => (prev + 1) % SLIDES.length);
+                  }}
                   className="w-7 h-7 rounded-full flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition active:scale-90"
                   aria-label="Sonraki özellik"
                 >
@@ -367,45 +373,63 @@ export default function LandingPage() {
                 </button>
               </div>
 
-              {/* Title & Description (Sağa çekilmiş, noktalarla arası açılmış) */}
-              <div className="flex-1 flex flex-col justify-center py-4 pl-1 sm:pl-2">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeSlide}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.28, ease: "easeOut" }}
-                  >
-                    <h3 className="text-[20px] sm:text-[24px] lg:text-[28px] 2xl:text-[34px] font-medium tracking-tight text-white leading-snug mb-2 sm:mb-2.5">
-                      {SLIDES[activeSlide].title}
-                    </h3>
-                    <p className="text-gray-400 text-[13px] sm:text-[14px] lg:text-[15px] 2xl:text-[17px] font-normal leading-[1.45] max-w-[420px]">
-                      {SLIDES[activeSlide].description}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
+              {/* Title & Description (Sabit yükseklikli, sıfır zıplamalı metin geçişi) */}
+              <div className="flex-1 relative min-h-[130px] sm:min-h-[150px] lg:min-h-[170px] flex flex-col justify-center py-4 pl-1 sm:pl-2">
+                {SLIDES.map((slide, index) => {
+                  const isCurrent = index === activeSlide;
+                  return (
+                    <motion.div
+                      key={slide.id}
+                      initial={false}
+                      animate={{
+                        opacity: isCurrent ? 1 : 0,
+                        y: isCurrent ? 0 : 8,
+                      }}
+                      transition={{ duration: 0.35, ease: "easeOut" }}
+                      className={`w-full ${
+                        isCurrent
+                          ? "relative z-10"
+                          : "absolute inset-y-0 left-1 sm:left-2 flex flex-col justify-center pointer-events-none z-0"
+                      }`}
+                    >
+                      <h3 className="text-[20px] sm:text-[24px] lg:text-[28px] 2xl:text-[34px] font-medium tracking-tight text-white leading-snug mb-2 sm:mb-2.5">
+                        {slide.title}
+                      </h3>
+                      <p className="text-gray-400 text-[13px] sm:text-[14px] lg:text-[15px] 2xl:text-[17px] font-normal leading-[1.45] max-w-[420px]">
+                        {slide.description}
+                      </p>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Right Graphic Mockup (Sağ tarafı doldurur) */}
-            <div className="lg:col-span-7 p-2 sm:p-3 lg:p-4 lg:pr-5 2xl:p-6 2xl:pr-8 flex items-center justify-end">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeSlide}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.32, ease: "easeOut" }}
-                  className="w-full flex justify-end"
-                >
-                  <img
-                    src={SLIDES[activeSlide].image}
-                    alt={SLIDES[activeSlide].title}
-                    className="w-full h-auto max-h-[380px] sm:max-h-[460px] lg:max-h-[520px] 2xl:max-h-[600px] object-contain object-right rounded-[18px] sm:rounded-[24px] lg:rounded-[36px] 2xl:rounded-[50px] drop-shadow-2xl"
-                  />
-                </motion.div>
-              </AnimatePresence>
+            {/* Right Graphic Mockup (Sabit yükseklikli, sıfır zıplamalı ve önceden yüklenen görsel geçişi) */}
+            <div className="lg:col-span-7 p-2 sm:p-3 lg:p-4 lg:pr-5 2xl:p-6 2xl:pr-8 flex items-center justify-end relative h-[360px] sm:h-[440px] lg:h-[500px] 2xl:h-[580px] w-full">
+              {SLIDES.map((slide, index) => {
+                const isCurrent = index === activeSlide;
+                return (
+                  <motion.div
+                    key={slide.id}
+                    initial={false}
+                    animate={{
+                      opacity: isCurrent ? 1 : 0,
+                      scale: isCurrent ? 1 : 0.97,
+                    }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className={`absolute inset-0 p-2 sm:p-3 lg:p-4 lg:pr-5 2xl:p-6 2xl:pr-8 flex items-center justify-end ${
+                      isCurrent ? "pointer-events-auto z-10" : "pointer-events-none z-0"
+                    }`}
+                  >
+                    <img
+                      src={slide.image}
+                      alt={slide.title}
+                      loading="eager"
+                      className="w-full h-auto max-h-[360px] sm:max-h-[440px] lg:max-h-[500px] 2xl:max-h-[580px] object-contain object-right rounded-[18px] sm:rounded-[24px] lg:rounded-[36px] 2xl:rounded-[50px] drop-shadow-2xl"
+                    />
+                  </motion.div>
+                );
+              })}
             </div>
 
           </div>
