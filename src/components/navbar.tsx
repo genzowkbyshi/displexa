@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronRight, Phone } from "lucide-react";
@@ -20,17 +21,27 @@ const NAV_ITEMS = [
 export default function Navbar({ variant = "sticky" }: NavbarProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Lock body scroll when mobile menu drawer is open
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll and handle Escape key when mobile menu drawer is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setMobileMenuOpen(false);
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
     } else {
       document.body.style.overflow = "";
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [mobileMenuOpen]);
 
   return (
@@ -111,82 +122,91 @@ export default function Navbar({ variant = "sticky" }: NavbarProps) {
         </div>
       </header>
 
-      {/* Figma Mobile Drawer Overlay (Node 964:41) */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-white flex flex-col justify-between overflow-y-auto animate-in fade-in duration-200">
-          {/* Top Header: Logo + Circular Close Button */}
-          <div className="px-5 h-16 flex items-center justify-between border-b border-black/[0.06]">
-            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center">
-              <img
-                src="/images/logo.png"
-                alt="MorgülMenü"
-                className="h-[24px] w-auto object-contain"
-              />
-            </Link>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-[42px] h-[42px] rounded-full border border-[#DCDCDC] flex items-center justify-center text-black hover:bg-neutral-100 transition active:scale-95"
-              aria-label="Menüyü Kapat"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-
-          {/* Middle Nav Links with Divider Lines & Right Chevron (Figma Lines 6-11) */}
-          <div className="flex-1 px-5 py-6 flex flex-col justify-center">
-            <div className="divide-y divide-black/[0.08] border-y border-black/[0.08]">
-              {NAV_ITEMS.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between py-4 text-[16px] font-normal transition ${
-                      isActive ? "text-black font-semibold" : "text-black hover:text-neutral-600"
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                    <ChevronRight className="w-4 h-4 text-neutral-400" />
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Bottom Action Buttons (Figma Node 964:41) */}
-          <div className="p-5 pb-8 flex flex-col gap-3">
-            {/* Row of 2 Buttons: Giriş Yap (border) & Kayıt Ol (black solid) */}
-            <div className="grid grid-cols-2 gap-3">
+      {/* Figma Mobile Full-Screen Overlay (Node 964:41) mounted directly to document.body */}
+      {mounted &&
+        mobileMenuOpen &&
+        createPortal(
+          <div className="fixed inset-0 top-0 left-0 right-0 bottom-0 z-[99999] w-screen h-[100dvh] min-h-[100dvh] bg-white flex flex-col justify-between overflow-y-auto animate-in fade-in duration-200">
+            {/* Top Header: Logo + Circular Close Button */}
+            <div className="px-5 h-16 shrink-0 flex items-center justify-between border-b border-black/[0.06]">
               <Link
-                href="/giris"
+                href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="h-[50px] rounded-full border border-black text-black hover:bg-neutral-100 text-[15px] font-medium flex items-center justify-center transition active:scale-95"
+                className="flex items-center"
               >
-                Giriş Yap
+                <img
+                  src="/images/logo.png"
+                  alt="MorgülMenü"
+                  className="h-[24px] w-auto object-contain"
+                />
               </Link>
-              <Link
-                href="/onboarding"
+              <button
+                type="button"
                 onClick={() => setMobileMenuOpen(false)}
-                className="h-[50px] rounded-full bg-black text-white hover:bg-neutral-800 text-[15px] font-medium flex items-center justify-center transition active:scale-95 shadow-sm"
+                className="w-[42px] h-[42px] rounded-full border border-[#DCDCDC] flex items-center justify-center text-black hover:bg-neutral-100 transition active:scale-95"
+                aria-label="Menüyü Kapat"
               >
-                Kayıt Ol
-              </Link>
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* Full-width "Sizi Arayalım" Button with Phone Icon */}
-            <Link
-              href="/iletisim"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full h-[50px] rounded-full border border-black text-black hover:bg-neutral-50 text-[15px] font-medium flex items-center justify-center gap-2.5 transition active:scale-95"
-            >
-              <Phone className="w-4 h-4" />
-              <span>Sizi Arayalım</span>
-            </Link>
-          </div>
-        </div>
-      )}
+            {/* Middle Nav Links with Divider Lines & Right Chevron (Figma Lines 6-11) */}
+            <div className="flex-1 px-5 py-6 flex flex-col justify-center">
+              <div className="divide-y divide-black/[0.08] border-y border-black/[0.08]">
+                {NAV_ITEMS.map((item) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center justify-between py-4 text-[17px] font-normal transition ${
+                        isActive
+                          ? "text-black font-semibold"
+                          : "text-black hover:text-neutral-600"
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronRight className="w-4 h-4 text-neutral-400" />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Bottom Action Buttons (Figma Node 964:41) */}
+            <div className="p-5 pb-8 shrink-0 flex flex-col gap-3">
+              {/* Row of 2 Buttons: Giriş Yap (border) & Kayıt Ol (black solid) */}
+              <div className="grid grid-cols-2 gap-3">
+                <Link
+                  href="/giris"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="h-[50px] rounded-full border border-black text-black hover:bg-neutral-100 text-[15px] font-medium flex items-center justify-center transition active:scale-95"
+                >
+                  Giriş Yap
+                </Link>
+                <Link
+                  href="/onboarding"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="h-[50px] rounded-full bg-black text-white hover:bg-neutral-800 text-[15px] font-medium flex items-center justify-center transition active:scale-95 shadow-sm"
+                >
+                  Kayıt Ol
+                </Link>
+              </div>
+
+              {/* Full-width "Sizi Arayalım" Button with Phone Icon */}
+              <Link
+                href="/iletisim"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full h-[50px] rounded-full border border-black text-black hover:bg-neutral-50 text-[15px] font-medium flex items-center justify-center gap-2.5 transition active:scale-95"
+              >
+                <Phone className="w-4 h-4" />
+                <span>Sizi Arayalım</span>
+              </Link>
+            </div>
+          </div>,
+          document.body
+        )}
     </>
   );
 }
