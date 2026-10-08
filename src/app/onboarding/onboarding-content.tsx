@@ -234,10 +234,10 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
           />
         </Link>
 
-        {/* Mobile: Anasayfaya Dön Butonu */}
+        {/* Mobile: Anasayfaya Dön Butonu (Sade, arka plansız metin) */}
         <Link
           href="/"
-          className="sm:hidden text-[12px] font-medium text-neutral-700 hover:text-black flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/15 bg-white hover:bg-neutral-50 active:scale-95 transition shadow-2xs"
+          className="sm:hidden text-[13px] font-normal text-neutral-500 hover:text-black flex items-center gap-1 transition active:opacity-70"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Anasayfa</span>

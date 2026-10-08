@@ -259,7 +259,7 @@ export default function LandingPage() {
         </div>
 
         {/* Hero Content Grid (1280px İçerik Kapsayıcısı) */}
-        <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-5 sm:px-8 pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-14 relative z-10 w-full">
+        <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-5 sm:px-8 pt-16 sm:pt-20 lg:pt-24 pb-6 sm:pb-8 lg:pb-10 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
             
             {/* Left Column: Text & CTA (Mobile Centered / Desktop Left-Aligned) */}
@@ -334,7 +334,7 @@ export default function LandingPage() {
       <section 
         id="ozellikler" 
         ref={sliderSectionRef}
-        className="py-12 lg:py-18 px-5 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto overflow-hidden"
+        className="py-6 sm:py-8 lg:py-10 px-5 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto overflow-hidden"
       >
         <motion.div
           style={{
@@ -532,15 +532,15 @@ export default function LandingPage() {
       </section>
 
       {/* 5. "Avantajlar" Section (Figma Mobile: 2 Kolon Grid - Node 888:134) */}
-      <section id="avantajlar" className="py-12 lg:py-18 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-5 sm:px-6">
+      <section id="avantajlar" className="py-6 sm:py-8 lg:py-10 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-5 sm:px-6">
         {/* Section Heading */}
-        <div className="text-left mb-8 sm:mb-12">
+        <div className="text-left mb-6 sm:mb-8">
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-[26px] sm:text-[34px] lg:text-[40px] font-medium tracking-tight text-black mb-2.5 sm:mb-3"
+            className="text-[26px] sm:text-[34px] lg:text-[40px] font-medium tracking-tight text-black mb-2 sm:mb-2.5"
           >
             Avantajlar
           </motion.h2>
@@ -589,18 +589,18 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 6. "İster web ister mobil deneyim." Section (Eşit Ritim: py-14 lg:py-18) */}
-      <section id="mobil-deneyim" className="py-14 lg:py-18 px-6 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto">
+      {/* 6. "İster web ister mobil deneyim." Section */}
+      <section id="mobil-deneyim" className="py-6 sm:py-8 lg:py-10 px-5 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto">
         <div 
-          className="rounded-[28px] md:rounded-[40px] lg:rounded-[56px] 2xl:rounded-[70px] border border-[#E6E6E6] relative overflow-hidden flex items-center"
+          className="rounded-[24px] md:rounded-[36px] lg:rounded-[56px] 2xl:rounded-[70px] border border-[#E6E6E6] relative overflow-hidden flex items-center"
           style={{
             background: "radial-gradient(circle at 20% 35%, #E8EBEF 0%, #FFFFFF 100%)"
           }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center w-full">
             
-            {/* Left Content (Artırılmış Sol/İç Boşluk) */}
-            <div className="lg:col-span-6 p-8 sm:p-12 lg:py-16 lg:pl-16 xl:pl-24 2xl:pl-32 lg:pr-8 flex flex-col justify-center">
+            {/* Left Content */}
+            <div className="lg:col-span-6 p-6 sm:p-8 lg:py-12 lg:pl-12 xl:pl-20 2xl:pl-28 lg:pr-6 flex flex-col justify-center">
               <motion.h2
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -677,8 +677,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. Fiyatlandırma (Eşit Ritim: py-14 lg:py-18, DAR ALAN: 1080px -> 1280px) */}
-      <section id="fiyatlar" className="relative py-14 lg:py-18 overflow-hidden">
+      {/* 7. Fiyatlandırma */}
+      <section id="fiyatlar" className="relative py-6 sm:py-8 lg:py-10 overflow-hidden">
         {/* Background Texture from Figma (pricing_bg.png) */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -693,9 +693,9 @@ export default function LandingPage() {
         </div>
 
         {/* DAR Container */}
-        <div className="relative z-10 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
+        <div className="relative z-10 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-5 sm:px-6">
           {/* Header + Toggle row */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 sm:mb-12">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
             <motion.h2
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -797,9 +797,9 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 8. Sıkça Sorulan Sorular (Eşit Ritim: py-14 lg:py-18, DAR ALAN: 1080px -> 1280px) */}
-      <section id="sss" className="py-14 lg:py-18 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
-        <div className="text-left mb-6 sm:mb-10">
+      {/* 8. Sıkça Sorulan Sorular */}
+      <section id="sss" className="py-6 sm:py-8 lg:py-10 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-5 sm:px-6">
+        <div className="text-left mb-4 sm:mb-6">
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -822,7 +822,7 @@ export default function LandingPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.03 }}
               onClick={() => setActiveModalFaq(faq)}
-              className="h-[54px] sm:h-[60px] px-5 sm:px-6 rounded-[14px] border border-[#CECECE] hover:border-black bg-white hover:bg-gray-50/80 hover:shadow-md transition-all duration-200 flex items-center justify-between gap-4 cursor-pointer text-left active:scale-[0.98] group"
+              className="h-[52px] sm:h-[58px] px-5 sm:px-6 rounded-[14px] border border-[#CECECE] hover:border-black bg-white hover:bg-gray-50/80 hover:shadow-md transition-all duration-200 flex items-center justify-between gap-4 cursor-pointer text-left active:scale-[0.98] group"
             >
               <span className="text-[14px] sm:text-[15px] font-normal text-black group-hover:text-black">
                 {faq.question}
@@ -893,10 +893,10 @@ export default function LandingPage() {
         )}
       </AnimatePresence>
 
-      {/* 9. "Morgül Blog" Section (Figma Yeni Blog Alanı - 1280px Container) */}
-      <section id="blog" className="py-14 lg:py-18 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
+      {/* 9. "Morgül Blog" Section */}
+      <section id="blog" className="py-6 sm:py-8 lg:py-10 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-5 sm:px-6">
         {/* Section Heading */}
-        <div className="text-left mb-8 sm:mb-10">
+        <div className="text-left mb-6 sm:mb-8">
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -946,7 +946,7 @@ export default function LandingPage() {
         </div>
 
         {/* Bottom "Tüm yazılar" Button */}
-        <div className="mt-10 sm:mt-12 flex justify-center">
+        <div className="mt-6 sm:mt-8 flex justify-center">
           <Link
             href="/blog"
             className="h-[44px] px-8 rounded-full bg-[#F7F7F7] hover:bg-black hover:text-white text-black text-[15px] font-light transition-all active:scale-95 cursor-pointer shadow-2xs hover:shadow-xs flex items-center justify-center"
@@ -956,8 +956,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 10. Bottom CTA Banner (Eşit Ritim: py-12 lg:py-18) */}
-      <section className="py-12 lg:py-18 px-5 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto">
+      {/* 10. Bottom CTA Banner */}
+      <section className="py-6 sm:py-8 lg:py-10 px-5 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto">
         <div className="bg-black text-white rounded-[26px] md:rounded-[40px] lg:rounded-[56px] 2xl:rounded-[70px] relative overflow-hidden flex items-center">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center w-full relative z-10">
             

@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer id="iletisim" className="py-14 sm:py-16 px-6 max-w-[1720px] mx-auto border-t border-gray-100 mt-10">
-      <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
+    <footer id="iletisim" className="py-8 sm:py-10 px-5 sm:px-6 max-w-[1720px] mx-auto border-t border-gray-100 mt-4 sm:mt-6">
+      <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
         
         {/* Left: Brand info */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-[340px]">
