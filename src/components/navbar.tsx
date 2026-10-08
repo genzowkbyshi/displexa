@@ -122,87 +122,97 @@ export default function Navbar({ variant = "sticky" }: NavbarProps) {
         </div>
       </header>
 
-      {/* Figma Mobile Full-Screen Overlay (Node 964:41) mounted directly to document.body */}
+      {/* Figma Mobile Drawer Overlay (Node 964:41: Top Sheet with rounded-b-[30px] + 30% Dark Backdrop) */}
       {mounted &&
         mobileMenuOpen &&
         createPortal(
-          <div className="fixed inset-0 top-0 left-0 right-0 bottom-0 z-[99999] w-screen h-[100dvh] min-h-[100dvh] bg-white flex flex-col justify-between overflow-y-auto animate-in fade-in duration-200">
-            {/* Top Header: Logo + Circular Close Button */}
-            <div className="px-5 h-16 shrink-0 flex items-center justify-between border-b border-black/[0.06]">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center"
-              >
-                <img
-                  src="/images/logo.png"
-                  alt="MorgülMenü"
-                  className="h-[24px] w-auto object-contain"
-                />
-              </Link>
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-[42px] h-[42px] rounded-full border border-[#DCDCDC] flex items-center justify-center text-black hover:bg-neutral-100 transition active:scale-95"
-                aria-label="Menüyü Kapat"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+          <div className="fixed inset-0 z-[99999] flex flex-col justify-start">
+            {/* Dark Backdrop Overlay (Figma Rectangle 112: opacity 0.3) */}
+            <div
+              onClick={() => setMobileMenuOpen(false)}
+              className="absolute inset-0 bg-black/40 backdrop-blur-xs transition-opacity duration-200 animate-in fade-in"
+              aria-hidden="true"
+            />
 
-            {/* Middle Nav Links with Divider Lines & Right Chevron (Figma Lines 6-11) */}
-            <div className="flex-1 px-5 py-6 flex flex-col justify-center">
-              <div className="divide-y divide-black/[0.08] border-y border-black/[0.08]">
-                {NAV_ITEMS.map((item) => {
-                  const isActive = pathname === item.href;
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center justify-between py-4 text-[17px] font-normal transition ${
-                        isActive
-                          ? "text-black font-semibold"
-                          : "text-black hover:text-neutral-600"
-                      }`}
-                    >
-                      <span>{item.label}</span>
-                      <ChevronRight className="w-4 h-4 text-neutral-400" />
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Bottom Action Buttons (Figma Node 964:41) */}
-            <div className="p-5 pb-8 shrink-0 flex flex-col gap-3">
-              {/* Row of 2 Buttons: Giriş Yap (border) & Kayıt Ol (black solid) */}
-              <div className="grid grid-cols-2 gap-3">
+            {/* Top White Sheet Panel (Figma Rectangle 110: 402x543px with cornerRadii [0, 0, 30, 30]) */}
+            <div className="relative z-10 w-full bg-white rounded-b-[30px] shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-top-3 duration-250 border-b border-black/10">
+              {/* Top Header: Logo + Circular Close Button */}
+              <div className="px-5 h-16 shrink-0 flex items-center justify-between border-b border-black/[0.06]">
                 <Link
-                  href="/giris"
+                  href="/"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="h-[50px] rounded-full border border-black text-black hover:bg-neutral-100 text-[15px] font-medium flex items-center justify-center transition active:scale-95"
+                  className="flex items-center"
                 >
-                  Giriş Yap
+                  <img
+                    src="/images/logo.png"
+                    alt="MorgülMenü"
+                    className="h-[24px] w-auto object-contain"
+                  />
                 </Link>
-                <Link
-                  href="/onboarding"
+                <button
+                  type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="h-[50px] rounded-full bg-black text-white hover:bg-neutral-800 text-[15px] font-medium flex items-center justify-center transition active:scale-95 shadow-sm"
+                  className="w-[42px] h-[42px] rounded-full border border-[#DCDCDC] flex items-center justify-center text-black hover:bg-neutral-100 transition active:scale-95"
+                  aria-label="Menüyü Kapat"
                 >
-                  Kayıt Ol
-                </Link>
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
-              {/* Full-width "Sizi Arayalım" Button with Phone Icon */}
-              <Link
-                href="/iletisim"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-[50px] rounded-full border border-black text-black hover:bg-neutral-50 text-[15px] font-medium flex items-center justify-center gap-2.5 transition active:scale-95"
-              >
-                <Phone className="w-4 h-4" />
-                <span>Sizi Arayalım</span>
-              </Link>
+              {/* Middle Nav Links with Divider Lines & Right Chevron (Figma Lines 6-11) */}
+              <div className="px-5 py-2 flex flex-col">
+                <div className="divide-y divide-black/[0.08] border-b border-black/[0.08]">
+                  {NAV_ITEMS.map((item) => {
+                    const isActive = pathname === item.href;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center justify-between py-3.5 text-[16px] font-normal transition ${
+                          isActive
+                            ? "text-black font-semibold"
+                            : "text-black hover:text-neutral-600"
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronRight className="w-4 h-4 text-neutral-400" />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Bottom Action Buttons (Figma Node 964:41) */}
+              <div className="p-5 pt-3 pb-6 shrink-0 flex flex-col gap-2.5">
+                {/* Row of 2 Buttons: Giriş Yap (border) & Kayıt Ol (black solid) */}
+                <div className="grid grid-cols-2 gap-3">
+                  <Link
+                    href="/giris"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="h-[48px] rounded-full border border-black text-black hover:bg-neutral-100 text-[15px] font-medium flex items-center justify-center transition active:scale-95"
+                  >
+                    Giriş Yap
+                  </Link>
+                  <Link
+                    href="/onboarding"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="h-[48px] rounded-full bg-black text-white hover:bg-neutral-800 text-[15px] font-medium flex items-center justify-center transition active:scale-95 shadow-sm"
+                  >
+                    Kayıt Ol
+                  </Link>
+                </div>
+
+                {/* Full-width "Sizi Arayalım" Button with Phone Icon */}
+                <Link
+                  href="/iletisim"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full h-[48px] rounded-full border border-black text-black hover:bg-neutral-50 text-[15px] font-medium flex items-center justify-center gap-2.5 transition active:scale-95"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>Sizi Arayalım</span>
+                </Link>
+              </div>
             </div>
           </div>,
           document.body

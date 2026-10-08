@@ -14,6 +14,7 @@ import {
   Sparkles,
   LogIn,
   KeyRound,
+  ArrowLeft,
 } from "lucide-react";
 import {
   onboardingSession,
@@ -233,6 +234,16 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
           />
         </Link>
 
+        {/* Mobile: Anasayfaya Dön Butonu */}
+        <Link
+          href="/"
+          className="sm:hidden text-[12px] font-medium text-neutral-700 hover:text-black flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/15 bg-white hover:bg-neutral-50 active:scale-95 transition shadow-2xs"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Anasayfa</span>
+        </Link>
+
+        {/* Desktop: Auth Switch Text */}
         {authMode === "register" ? (
           <button
             type="button"
