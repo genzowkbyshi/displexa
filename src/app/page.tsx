@@ -260,21 +260,19 @@ export default function LandingPage() {
 
         {/* Hero Content Grid (1280px İçerik Kapsayıcısı) */}
         <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6 sm:px-8 pt-24 lg:pt-28 pb-14 relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
             
             {/* Left Column: Text & CTA */}
-            <div className="lg:col-span-6 max-w-[480px] xl:max-w-[520px]">
+            <div className="lg:col-span-5 max-w-[460px]">
               {/* Title */}
               <motion.h1
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-[32px] sm:text-[40px] lg:text-[44px] xl:text-[50px] 2xl:text-[56px] font-bold text-black leading-[1.14] tracking-tight"
+                className="text-[32px] sm:text-[40px] lg:text-[44px] xl:text-[50px] 2xl:text-[56px] text-black leading-[1.14] tracking-tight"
               >
-                Menünüzü
-                <br />
-                <span className="font-bold">Dijitale Taşıyın,</span>
-                <br />
+                <span className="font-normal block">Menünüzü</span>
+                <span className="font-bold block">Dijitale Taşıyın,</span>
                 <span className="font-playfair italic font-bold text-[24px] sm:text-[30px] lg:text-[34px] xl:text-[38px] 2xl:text-[44px] text-black block mt-1 tracking-tight leading-[1.2]">
                   işletmenizi büyütün.
                 </span>
@@ -285,7 +283,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="mt-4 sm:mt-5 text-[15px] sm:text-[16px] lg:text-[17px] xl:text-[18px] font-light text-black leading-[1.45] max-w-[440px]"
+                className="mt-4 sm:mt-5 text-[15px] sm:text-[16px] lg:text-[17px] xl:text-[18px] font-light text-black leading-[1.45] max-w-[430px]"
               >
                 Saniyeler içinde kayıt olun. Ürünlerinizi ekleyin, fiyatlarınızı anında güncelleyin. Modern ve hızlı QR menü ile işletmenize değer katın.
               </motion.p>
@@ -312,18 +310,18 @@ export default function LandingPage() {
               </motion.div>
             </div>
 
-            {/* Right Column: Hero Graphic Mockup Composition */}
-            <div className="lg:col-span-6 flex items-center justify-center lg:justify-end">
+            {/* Right Column: Hero Graphic Mockup Composition (Slightly larger, 7 cols) */}
+            <div className="lg:col-span-7 flex items-center justify-center lg:justify-end">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.15 }}
-                className="w-full max-w-[560px] lg:max-w-none flex justify-center lg:justify-end"
+                className="w-full max-w-[620px] lg:max-w-none flex justify-center lg:justify-end"
               >
                 <img
                   src="/images/hero_mockup.png"
                   alt="Morgül Menü Yönetim Ekranı ve QR Özellikleri"
-                  className="w-full h-auto max-h-[420px] sm:max-h-[460px] lg:max-h-[500px] xl:max-h-[540px] 2xl:max-h-[580px] object-contain drop-shadow-2xl"
+                  className="w-full h-auto max-h-[460px] sm:max-h-[500px] lg:max-h-[540px] xl:max-h-[580px] 2xl:max-h-[620px] object-contain drop-shadow-2xl"
                 />
               </motion.div>
             </div>
