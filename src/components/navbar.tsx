@@ -63,24 +63,30 @@ export default function Navbar({ variant = "sticky" }: NavbarProps) {
           })}
         </nav>
 
-        {/* Header Action Button (Desktop) */}
-        <div className="hidden md:flex items-center gap-3">
-          <a
-            href={`${panelUrl}/giris`}
-            className="h-[36px] sm:h-[38px] px-5 sm:px-6 rounded-full bg-white/80 hover:bg-white text-black text-[13px] sm:text-[14px] font-medium border border-black/10 hover:border-black/25 transition-all active:scale-95 flex items-center justify-center backdrop-blur-md shadow-sm"
+        {/* Header Action Buttons (Desktop) */}
+        <div className="hidden md:flex items-center gap-2.5">
+          <Link
+            href="/giris"
+            className="h-[36px] sm:h-[38px] px-4 sm:px-5 rounded-full text-black hover:bg-black/[0.06] text-[13px] sm:text-[14px] font-medium transition-all active:scale-95 flex items-center justify-center"
+          >
+            Giriş Yap
+          </Link>
+          <Link
+            href="/onboarding"
+            className="h-[36px] sm:h-[38px] px-5 sm:px-6 rounded-full bg-black text-white hover:bg-neutral-800 text-[13px] sm:text-[14px] font-medium transition-all active:scale-95 flex items-center justify-center shadow-sm"
           >
             Ücretsiz Başla
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
         <div className="flex md:hidden items-center gap-2">
-          <a
-            href={`${panelUrl}/giris`}
+          <Link
+            href="/giris"
             className="h-[32px] px-3.5 rounded-full bg-black text-white text-[12px] font-medium flex items-center justify-center"
           >
             Giriş
-          </a>
+          </Link>
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -114,6 +120,13 @@ export default function Navbar({ variant = "sticky" }: NavbarProps) {
               );
             })}
             <div className="pt-3 mt-1 border-t border-black/[0.08] flex flex-col gap-2">
+              <Link
+                href="/giris"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full h-11 rounded-full border border-black/15 text-black text-[14px] font-medium flex items-center justify-center hover:bg-neutral-50 transition"
+              >
+                Giriş Yap
+              </Link>
               <Link
                 href="/onboarding"
                 onClick={() => setMobileMenuOpen(false)}

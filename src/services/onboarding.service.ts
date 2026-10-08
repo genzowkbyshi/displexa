@@ -52,3 +52,13 @@ export async function onboardingPackage(payload: OnboardingPackageRequest): Prom
   const response = await apiClient.post<any>('/onboarding/package', payload);
   return response;
 }
+
+export interface LoginRequest {
+  email?: string;
+  password?: string;
+}
+
+export async function loginUser(payload: LoginRequest): Promise<any> {
+  const response = await apiClient.post<any>('/auth/login', payload);
+  return response;
+}

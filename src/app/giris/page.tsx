@@ -1,9 +1,9 @@
 "use client";
 
 import React, { Suspense } from "react";
-import OnboardingContent from "./onboarding-content";
+import OnboardingContent from "../onboarding/onboarding-content";
 
-export default function OnboardingPage() {
+export default function GirisPage() {
   return (
     <Suspense
       fallback={
@@ -12,7 +12,7 @@ export default function OnboardingPage() {
         </div>
       }
     >
-      <OnboardingContent defaultMode="register" />
+      <OnboardingContent defaultMode="login" />
     </Suspense>
   );
 }

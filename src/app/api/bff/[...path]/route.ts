@@ -73,7 +73,7 @@ async function handleProxy(request: NextRequest, { params }: { params: Promise<{
       nextResponse.headers.set('Expires', '0');
     }
 
-    if ((pathname === '/onboarding/verify' || pathname === '/onboarding/google/register') && response.ok && responseBody) {
+    if ((pathname === '/onboarding/verify' || pathname === '/onboarding/google/register' || pathname === '/auth/login') && response.ok && responseBody) {
       setAuthCookies(nextResponse, responseBody);
     }
 
