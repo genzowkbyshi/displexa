@@ -299,13 +299,13 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
             {/* Left Column: Text & CTA */}
-            <div className="lg:col-span-6 max-w-[540px]">
+            <div className="lg:col-span-5 max-w-[520px]">
               {/* Title */}
               <motion.h1
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-[34px] sm:text-[42px] lg:text-[50px] 2xl:text-[60px] font-bold text-black leading-[1.14] tracking-tight"
+                className="text-[34px] sm:text-[42px] lg:text-[48px] 2xl:text-[56px] font-bold text-black leading-[1.14] tracking-tight"
               >
                 Menünüzü
                 <br />
@@ -321,7 +321,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="mt-4 sm:mt-5 text-[15px] sm:text-[17px] lg:text-[18px] 2xl:text-[20px] font-light text-black leading-[1.45] max-w-[480px]"
+                className="mt-4 sm:mt-5 text-[15px] sm:text-[16px] lg:text-[17px] 2xl:text-[19px] font-light text-black leading-[1.45] max-w-[460px]"
               >
                 Saniyeler içinde kayıt olun. Ürünlerinizi ekleyin, fiyatlarınızı anında güncelleyin. Modern ve hızlı QR menü ile işletmenize değer katın.
               </motion.p>
@@ -348,18 +348,18 @@ export default function LandingPage() {
               </motion.div>
             </div>
 
-            {/* Right Column: Hero Graphic Mockup Composition (Group 47) */}
-            <div className="lg:col-span-6 flex items-center justify-center lg:justify-end">
+            {/* Right Column: Hero Graphic Mockup Composition (Enlarged) */}
+            <div className="lg:col-span-7 flex items-center justify-center lg:justify-end">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.15 }}
-                className="w-full max-w-[640px] lg:max-w-none flex justify-center lg:justify-end"
+                className="w-full max-w-[680px] lg:max-w-none flex justify-center lg:justify-end lg:scale-105 xl:scale-110 2xl:scale-115 origin-center lg:origin-right"
               >
                 <img
                   src="/images/hero_mockup.png"
                   alt="Morgül Menü Yönetim Ekranı ve QR Özellikleri"
-                  className="w-full h-auto max-h-[460px] lg:max-h-[520px] 2xl:max-h-[560px] object-contain drop-shadow-xl"
+                  className="w-full h-auto max-h-[500px] lg:max-h-[580px] 2xl:max-h-[640px] object-contain drop-shadow-2xl"
                 />
               </motion.div>
             </div>
