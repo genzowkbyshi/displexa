@@ -565,32 +565,32 @@ export default function LandingPage() {
           </motion.p>
         </div>
 
-        {/* 6 Feature Cards Grid (Figma Mobile: 2 Columns - 175px width cards) */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 lg:gap-7 items-stretch">
+        {/* 6 Feature Cards Grid (Figma Mobile: 2 Columns - Kompakt ve Yakın Düzen) */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5 lg:gap-7 items-stretch">
           {AVANTAJLAR.map((item, idx) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="bg-[#F7F7F7] rounded-[20px] sm:rounded-[26px] lg:rounded-[30px] p-4 sm:p-6 lg:p-7 flex flex-col items-center text-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300 justify-between min-h-[220px] sm:min-h-[250px]"
+              transition={{ duration: 0.35, delay: idx * 0.04 }}
+              className="bg-[#F7F7F7] rounded-[18px] sm:rounded-[24px] lg:rounded-[30px] p-3 sm:p-5 lg:p-7 flex flex-col items-center text-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300 justify-start sm:justify-between min-h-0 sm:min-h-[240px]"
             >
               {/* 3D Illustration */}
-              <div className="w-full flex items-center justify-center h-[80px] sm:h-[95px] lg:h-[110px] mb-2 sm:mb-3">
+              <div className="w-full flex items-center justify-center h-[58px] sm:h-[80px] lg:h-[105px] mb-1 sm:mb-2.5">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="max-h-[75px] sm:max-h-[90px] lg:max-h-[105px] w-auto object-contain"
+                  className="max-h-[55px] sm:max-h-[75px] lg:max-h-[100px] w-auto object-contain"
                 />
               </div>
 
               {/* Card Texts */}
-              <div className="w-full">
-                <h3 className="text-[14px] sm:text-[17px] lg:text-[20px] font-medium text-black tracking-tight mb-1 sm:mb-1.5">
+              <div className="w-full flex flex-col items-center">
+                <h3 className="text-[13px] sm:text-[16px] lg:text-[20px] font-medium text-black tracking-tight mb-0.5 sm:mb-1.5 leading-snug">
                   {item.title}
                 </h3>
-                <p className="text-[11px] sm:text-[13px] lg:text-[14px] font-light text-[#545454] leading-[1.35] sm:leading-relaxed max-w-[320px] mx-auto line-clamp-3 sm:line-clamp-none">
+                <p className="text-[10.5px] sm:text-[12.5px] lg:text-[14px] font-light text-[#545454] leading-[1.3] sm:leading-relaxed max-w-[320px] mx-auto line-clamp-3 sm:line-clamp-none">
                   {item.description}
                 </p>
               </div>
