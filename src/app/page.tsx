@@ -44,6 +44,69 @@ const SLIDES = [
   },
 ];
 
+const AVANTAJLAR = [
+  {
+    id: 1,
+    title: "Daima Güncel",
+    description: "Başkasına gerek kalmadan istediğiniz yerde ve zamanda menünüzü güncelleyin.",
+    image: "/images/av1_guncel.png",
+  },
+  {
+    id: 2,
+    title: "Maliyet Hesabı",
+    description: "Ürün ve fiyat güncellemesi için basılı menülerin maliyetinden kurtulun.",
+    image: "/images/av2_maliyet.png",
+  },
+  {
+    id: 3,
+    title: "Görsel Zenginlik",
+    description: "Ürünlerinizin çekici görselleriyle müşterilerinizin seçimini kolaylaştırın.",
+    image: "/images/av3_zenginlik.png",
+  },
+  {
+    id: 4,
+    title: "Çoklu Dil Desteği",
+    description: "Menünüzü oluştururken farklı dillerde ekleme yaparak dil bariyerini aşın.",
+    image: "/images/av4_dil.png",
+  },
+  {
+    id: 5,
+    title: "Menü Detayları",
+    description: "Ürünleri kalori ve alerjen uyarılarını eklereyerek müşterilerinize kolaylık sağlayın.",
+    image: "/images/av5_detay.png",
+  },
+  {
+    id: 6,
+    title: "Hijyenik Sipariş",
+    description: "Zamanla yıpranan ve kirlenen menülerin yerine dijital siparişe geçin.",
+    image: "/images/av6_hijyen.png",
+  },
+];
+
+const BLOG_POSTS = [
+  {
+    id: 1,
+    title: "Blog Başlık 1",
+    description:
+      "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+    image: "/images/blog1.png",
+  },
+  {
+    id: 2,
+    title: "Blog Başlık 2",
+    description:
+      "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+    image: "/images/blog2.png",
+  },
+  {
+    id: 3,
+    title: "Blog Başlık 3",
+    description:
+      "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+    image: "/images/blog3.png",
+  },
+];
+
 const PRICING_PLANS = [
   {
     id: "free",
@@ -184,19 +247,22 @@ export default function LandingPage() {
             />
           </Link>
 
-          {/* Navigation Links */}
+          {/* Navigation Links (Figma Güncel Menü) */}
           <nav className="hidden md:flex items-center gap-7 lg:gap-9 text-[14px] sm:text-[15px] font-normal text-black">
             <a href="#ozellikler" className="hover:opacity-70 transition-opacity">
               Özellikler
-            </a>
-            <a href="#nasil-calisir" className="hover:opacity-70 transition-opacity">
-              Nasıl Çalışır?
             </a>
             <a href="#fiyatlar" className="hover:opacity-70 transition-opacity">
               Fiyatlandırma
             </a>
             <a href="#sss" className="hover:opacity-70 transition-opacity">
-              Sıkça Sorulan Sorular
+              Destek/SSS
+            </a>
+            <a href="#blog" className="hover:opacity-70 transition-opacity">
+              Blog
+            </a>
+            <a href="#iletisim" className="hover:opacity-70 transition-opacity">
+              İletişim
             </a>
           </nav>
 
@@ -212,70 +278,91 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* 2. Hero Section */}
-      <section className="relative min-h-[580px] lg:min-h-[660px] 2xl:min-h-[820px] flex items-center overflow-hidden bg-[#fafafa]">
+      {/* 2. Hero Section (Figma Yeni Banner + Sağ Mockup Kompozisyonu) */}
+      <section className="relative min-h-[620px] lg:min-h-[700px] 2xl:min-h-[820px] flex items-center overflow-hidden bg-[#fafafa]">
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/banner.png"
+            src="/images/banner_bg.png"
             alt="Morgül Menü Banner"
             fill
             priority
-            className="object-cover object-right md:object-center pointer-events-none"
+            className="object-cover object-top pointer-events-none"
           />
-          {/* Mobile subtle gradient overlay to ensure text legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent md:from-white/50 md:via-white/10 md:to-transparent pointer-events-none" />
+          {/* Bottom subtle gradient overlay to ensure smooth transition to white */}
+          <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
         </div>
 
-        {/* Hero Content */}
-        <div className="container max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 pt-20 lg:pt-24 pb-12 relative z-10">
-          <div className="max-w-[460px] lg:max-w-[520px]">
-            {/* Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-[34px] sm:text-[42px] lg:text-[50px] 2xl:text-[60px] font-bold text-black leading-[1.14] tracking-tight"
-            >
-              Menünüzü
-              <br />
-              <span className="font-bold">Dijitale Taşıyın,</span>
-              <br />
-              <span className="font-playfair italic font-bold text-[26px] sm:text-[32px] lg:text-[38px] 2xl:text-[44px] text-black block mt-1 tracking-tight leading-[1.2]">
-                işletmenizi büyütün.
-              </span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-4 sm:mt-5 text-[15px] sm:text-[17px] lg:text-[19px] 2xl:text-[22px] font-light text-black leading-[1.45] max-w-[460px]"
-            >
-              Saniyeler içinde kayıt olun. Ürünlerinizi ekleyin, fiyatlarınızı anında güncelleyin. Modern ve hızlı QR menü ile işletmenize değer katın.
-            </motion.p>
-
-            {/* Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5"
-            >
-              <Link
-                href="/onboarding"
-                className="w-full sm:w-auto h-[44px] sm:h-[46px] px-7 rounded-full bg-black text-white text-[15px] sm:text-[16px] font-medium border border-[#D2D2D2] hover:bg-neutral-800 transition-all hover:scale-105 active:scale-95 hover:shadow-md flex items-center justify-center text-center"
+        {/* Hero Content Grid (Sol Metin + Sağ Mockup Kompozisyonu) */}
+        <div className="container max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 pt-24 lg:pt-28 pb-14 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            
+            {/* Left Column: Text & CTA */}
+            <div className="lg:col-span-6 max-w-[540px]">
+              {/* Title */}
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="text-[34px] sm:text-[42px] lg:text-[50px] 2xl:text-[60px] font-bold text-black leading-[1.14] tracking-tight"
               >
-                Ücretsiz Deneyin
-              </Link>
-              <a
-                href="#ozellikler"
-                className="w-full sm:w-auto h-[44px] sm:h-[46px] px-7 rounded-full bg-white text-black text-[15px] sm:text-[16px] font-medium border border-[#D2D2D2] hover:border-black transition-all hover:scale-105 active:scale-95 hover:shadow-sm flex items-center justify-center text-center"
+                Menünüzü
+                <br />
+                <span className="font-bold">Dijitale Taşıyın,</span>
+                <br />
+                <span className="font-playfair italic font-bold text-[26px] sm:text-[32px] lg:text-[38px] 2xl:text-[44px] text-black block mt-1 tracking-tight leading-[1.2]">
+                  işletmenizi büyütün.
+                </span>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="mt-4 sm:mt-5 text-[15px] sm:text-[17px] lg:text-[18px] 2xl:text-[20px] font-light text-black leading-[1.45] max-w-[480px]"
               >
-                Özellikleri Keşfedin
-              </a>
-            </motion.div>
+                Saniyeler içinde kayıt olun. Ürünlerinizi ekleyin, fiyatlarınızı anında güncelleyin. Modern ve hızlı QR menü ile işletmenize değer katın.
+              </motion.p>
+
+              {/* Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5"
+              >
+                <Link
+                  href="/onboarding"
+                  className="w-full sm:w-auto h-[46px] sm:h-[48px] px-8 rounded-full bg-black text-white text-[15px] sm:text-[16px] font-medium hover:bg-neutral-800 transition-all hover:scale-105 active:scale-95 hover:shadow-md flex items-center justify-center text-center"
+                >
+                  Ücretsiz Deneyin
+                </Link>
+                <a
+                  href="#ozellikler"
+                  className="w-full sm:w-auto h-[46px] sm:h-[48px] px-8 rounded-full bg-white text-black text-[15px] sm:text-[16px] font-medium border border-[#D2D2D2] hover:border-black transition-all hover:scale-105 active:scale-95 hover:shadow-sm flex items-center justify-center text-center"
+                >
+                  Özellikleri Keşfedin
+                </a>
+              </motion.div>
+            </div>
+
+            {/* Right Column: Hero Graphic Mockup Composition (Group 47) */}
+            <div className="lg:col-span-6 flex items-center justify-center lg:justify-end">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="w-full max-w-[640px] lg:max-w-none flex justify-center lg:justify-end"
+              >
+                <img
+                  src="/images/hero_mockup.png"
+                  alt="Morgül Menü Yönetim Ekranı ve QR Özellikleri"
+                  className="w-full h-auto max-h-[460px] lg:max-h-[520px] 2xl:max-h-[560px] object-contain drop-shadow-xl"
+                />
+              </motion.div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -436,76 +523,61 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
-      {/* 5. "Nasıl çalışır?" Section (Eşit Ritim: py-14 lg:py-18) */}
-      <section id="nasil-calisir" className="py-14 lg:py-18 px-6 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto">
+      {/* 5. "Avantajlar" Section (Figma Güncel 6 Kartlı Tasarım - 1280px Container) */}
+      <section id="avantajlar" className="py-14 lg:py-18 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
         {/* Section Heading */}
-        <div className="text-center max-w-[760px] mx-auto mb-10 sm:mb-12">
+        <div className="text-left mb-10 sm:mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-[26px] sm:text-[30px] lg:text-[34px] 2xl:text-[38px] font-medium tracking-tight text-black mb-2.5"
+            className="text-[28px] sm:text-[34px] lg:text-[40px] font-medium tracking-tight text-black mb-3"
           >
-            Nasıl çalışır?
+            Avantajlar
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="text-[14px] sm:text-[16px] lg:text-[18px] font-light text-[#5D5D5D] leading-relaxed"
+            className="text-[15px] sm:text-[16px] lg:text-[18px] font-light text-[#5D5D5D] leading-relaxed max-w-[840px]"
           >
             Morgül menüde menünüzü yayınlamak çok kolay. Sade ve kolay kullanımı amaçlayan yapısı ile rahatlıkla dijital menünüzü oluşturabilirsiniz.
           </motion.p>
         </div>
 
-        {/* 3 Step Cards Grid */}
-        <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-6 lg:gap-8 max-w-[940px] mx-auto">
-          {/* Step 1 */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="w-[190px] sm:w-[220px] lg:w-[250px] h-[190px] sm:h-[220px] lg:h-[250px] rounded-[22px] lg:rounded-[28px] overflow-hidden flex items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-          >
-            <img
-              src="/images/n1.png"
-              alt="Üye olun"
-              className="w-full h-full object-contain"
-            />
-          </motion.div>
+        {/* 6 Feature Cards Grid (3x2) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+          {AVANTAJLAR.map((item, idx) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.06 }}
+              className="bg-[#F7F7F7] rounded-[30px] p-6 sm:p-7 flex flex-col items-center text-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300 justify-between min-h-[250px]"
+            >
+              {/* 3D Illustration */}
+              <div className="w-full flex items-center justify-center h-[110px] mb-3">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="max-h-[105px] w-auto object-contain"
+                />
+              </div>
 
-          {/* Step 2 */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="w-[190px] sm:w-[220px] lg:w-[250px] h-[190px] sm:h-[220px] lg:h-[250px] rounded-[22px] lg:rounded-[28px] overflow-hidden flex items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-          >
-            <img
-              src="/images/n2.png"
-              alt="Menünüzü oluşturun"
-              className="w-full h-full object-contain"
-            />
-          </motion.div>
-
-          {/* Step 3 */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="w-[190px] sm:w-[220px] lg:w-[250px] h-[190px] sm:h-[220px] lg:h-[250px] rounded-[22px] lg:rounded-[28px] overflow-hidden flex items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-          >
-            <img
-              src="/images/n3.png"
-              alt="Yayınlayın"
-              className="w-full h-full object-contain"
-            />
-          </motion.div>
+              {/* Card Texts */}
+              <div>
+                <h3 className="text-[19px] sm:text-[20px] font-medium text-black tracking-tight mb-1.5">
+                  {item.title}
+                </h3>
+                <p className="text-[14px] sm:text-[15px] font-light text-[#545454] leading-relaxed max-w-[320px] mx-auto">
+                  {item.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -813,7 +885,66 @@ export default function LandingPage() {
         )}
       </AnimatePresence>
 
-      {/* 9. Bottom CTA Banner (Eşit Ritim: py-14 lg:py-18) */}
+      {/* 9. "Morgül Blog" Section (Figma Yeni Blog Alanı - 1280px Container) */}
+      <section id="blog" className="py-14 lg:py-18 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
+        {/* Section Heading */}
+        <div className="text-left mb-8 sm:mb-10">
+          <motion.h2
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="text-[28px] sm:text-[34px] lg:text-[40px] font-medium tracking-tight text-black"
+          >
+            Morgül Blog
+          </motion.h2>
+        </div>
+
+        {/* 3 Blog Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
+          {BLOG_POSTS.map((post, idx) => (
+            <motion.div
+              key={post.id}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              className="group cursor-pointer flex flex-col hover:-translate-y-1 transition-all duration-300"
+            >
+              {/* Blog Image */}
+              <div className="w-full aspect-[410/310] rounded-[20px] overflow-hidden mb-4 bg-gray-100">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+
+              {/* Blog Title */}
+              <h3 className="text-[18px] sm:text-[19px] font-medium text-black tracking-tight mb-2 group-hover:text-neutral-700 transition-colors">
+                {post.title}
+              </h3>
+
+              {/* Blog Description */}
+              <p className="text-[14px] sm:text-[15px] font-light text-[#5D5D5D] leading-relaxed line-clamp-3">
+                {post.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bottom "Tüm yazılar" Button */}
+        <div className="mt-10 sm:mt-12 flex justify-center">
+          <button
+            type="button"
+            className="h-[44px] px-8 rounded-full bg-[#F7F7F7] hover:bg-black hover:text-white text-black text-[15px] font-light transition-all active:scale-95 cursor-pointer shadow-2xs hover:shadow-xs"
+          >
+            Tüm yazılar
+          </button>
+        </div>
+      </section>
+
+      {/* 10. Bottom CTA Banner (Eşit Ritim: py-14 lg:py-18) */}
       <section className="py-14 lg:py-18 px-6 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto">
         <div className="bg-black text-white rounded-[28px] md:rounded-[40px] lg:rounded-[56px] 2xl:rounded-[70px] relative overflow-hidden flex items-center">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center w-full relative z-10">
@@ -878,8 +1009,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 10. Footer (Eşit Ritim) */}
-      <footer className="py-12 sm:py-14 px-6 max-w-[1720px] mx-auto border-t border-gray-100 mt-4 text-center">
+      {/* 11. Footer (İletişim) */}
+      <footer id="iletisim" className="py-12 sm:py-14 px-6 max-w-[1720px] mx-auto border-t border-gray-100 mt-4 text-center">
         <div className="flex flex-col items-center justify-center gap-3">
           {/* Footer Logo */}
           <Link href="/" className="inline-block group">
