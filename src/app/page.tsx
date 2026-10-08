@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import { Plus, X, ChevronUp, ChevronDown } from "lucide-react";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 const SLIDES = [
   {
@@ -86,24 +88,27 @@ const AVANTAJLAR = [
 const BLOG_POSTS = [
   {
     id: 1,
-    title: "Blog Başlık 1",
+    title: "QR Menü ile Restoran Maliyetlerini Düşürmenin 5 Yolu",
     description:
-      "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+      "Her fiyat değişiminde matbaaya binlerce lira ödemeye son verin. Dijital menülerin kağıt ve operasyonel giderleri nasıl azalttığını keşfedin.",
     image: "/images/blog1.png",
+    href: "/blog/qr-menu-ile-restoran-maliyetlerini-dusurmenin-5-yolu",
   },
   {
     id: 2,
-    title: "Blog Başlık 2",
+    title: "Menü Mühendisliği Nedir ve Satışları Nasıl Artırır?",
     description:
-      "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+      "Müşterilerinizin göz hareketlerine göre en karlı yemeklerinizi öne çıkarın. Psikolojik fiyatlandırma ve yerleşim stratejileri rehberi.",
     image: "/images/blog2.png",
+    href: "/blog/menu-muhendisligi-nedir-ve-satislari-nasil-artirir",
   },
   {
     id: 3,
-    title: "Blog Başlık 3",
+    title: "Restoranlarda Çoklu Dil Desteği: Turist Müşterileri Nasıl Çeker?",
     description:
-      "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.",
+      "Dil bariyerini ortadan kaldırarak yabancı misafirlerinize kendi dillerinde sipariş verme imkanı sağlayın ve cironuzu katlayın.",
     image: "/images/blog3.png",
+    href: "/blog/restoranlarda-coklu-dil-destegi-turist-musterileri-nasil-ceker",
   },
 ];
 
@@ -235,49 +240,8 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white overflow-x-hidden">
       
-      {/* 1. Header / Navbar (Geniş Alan: 1720px) */}
-      <header className="absolute top-0 inset-x-0 z-50">
-        <div className="max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 h-16 sm:h-20 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center group">
-            <img
-              src="/images/logo.png"
-              alt="MorgülMenü"
-              className="h-[24px] sm:h-[28px] w-auto object-contain transition-transform group-hover:scale-105"
-            />
-          </Link>
-
-          {/* Navigation Links (Figma Güncel Menü - Belirgin Hover Efekti) */}
-          <nav className="hidden md:flex items-center gap-1.5 lg:gap-2.5 text-[14px] sm:text-[15px] text-black">
-            {[
-              { label: "Özellikler", href: "#ozellikler" },
-              { label: "Fiyatlandırma", href: "#fiyatlar" },
-              { label: "Destek/SSS", href: "#sss" },
-              { label: "Blog", href: "#blog" },
-              { label: "İletişim", href: "#iletisim" },
-            ].map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="relative px-3.5 py-1.5 rounded-full text-neutral-700 hover:text-black hover:bg-black/[0.08] transition-all duration-200 font-medium active:scale-95 group"
-              >
-                <span>{item.label}</span>
-                <span className="absolute bottom-1 inset-x-3.5 h-[2px] bg-black scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center rounded-full" />
-              </a>
-            ))}
-          </nav>
-
-          {/* Header Action Button */}
-          <div className="flex items-center">
-            <a
-              href={`${panelUrl}/giris`}
-              className="h-[36px] sm:h-[38px] px-5 sm:px-6 rounded-full bg-white/70 hover:bg-white text-black text-[13px] sm:text-[14px] font-medium border border-black/10 hover:border-black/20 transition-all active:scale-95 flex items-center justify-center backdrop-blur-md"
-            >
-              Ücretsiz Başla
-            </a>
-          </div>
-        </div>
-      </header>
+      {/* 1. Header / Navbar (Ortak Bileşen) */}
+      <Navbar variant="absolute" />
 
       {/* 2. Hero Section (Figma Yeni Banner + Sağ Mockup Kompozisyonu - 1280px Container) */}
       <section className="relative min-h-[620px] lg:min-h-[700px] 2xl:min-h-[820px] flex items-center overflow-hidden bg-[#fafafa]">
@@ -893,38 +857,42 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
-              className="group cursor-pointer flex flex-col hover:-translate-y-1 transition-all duration-300"
             >
-              {/* Blog Image */}
-              <div className="w-full aspect-[410/310] rounded-[20px] overflow-hidden mb-4 bg-gray-100">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
+              <Link
+                href={post.href}
+                className="group cursor-pointer flex flex-col hover:-translate-y-1 transition-all duration-300 h-full"
+              >
+                {/* Blog Image */}
+                <div className="w-full aspect-[410/310] rounded-[20px] overflow-hidden mb-4 bg-gray-100">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
 
-              {/* Blog Title */}
-              <h3 className="text-[18px] sm:text-[19px] font-medium text-black tracking-tight mb-2 group-hover:text-neutral-700 transition-colors">
-                {post.title}
-              </h3>
+                {/* Blog Title */}
+                <h3 className="text-[18px] sm:text-[19px] font-medium text-black tracking-tight mb-2 group-hover:text-neutral-700 transition-colors">
+                  {post.title}
+                </h3>
 
-              {/* Blog Description */}
-              <p className="text-[14px] sm:text-[15px] font-light text-[#5D5D5D] leading-relaxed line-clamp-3">
-                {post.description}
-              </p>
+                {/* Blog Description */}
+                <p className="text-[14px] sm:text-[15px] font-light text-[#5D5D5D] leading-relaxed line-clamp-3">
+                  {post.description}
+                </p>
+              </Link>
             </motion.div>
           ))}
         </div>
 
         {/* Bottom "Tüm yazılar" Button */}
         <div className="mt-10 sm:mt-12 flex justify-center">
-          <button
-            type="button"
-            className="h-[44px] px-8 rounded-full bg-[#F7F7F7] hover:bg-black hover:text-white text-black text-[15px] font-light transition-all active:scale-95 cursor-pointer shadow-2xs hover:shadow-xs"
+          <Link
+            href="/blog"
+            className="h-[44px] px-8 rounded-full bg-[#F7F7F7] hover:bg-black hover:text-white text-black text-[15px] font-light transition-all active:scale-95 cursor-pointer shadow-2xs hover:shadow-xs flex items-center justify-center"
           >
             Tüm yazılar
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -993,23 +961,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 11. Footer (İletişim) */}
-      <footer id="iletisim" className="py-12 sm:py-14 px-6 max-w-[1720px] mx-auto border-t border-gray-100 mt-4 text-center">
-        <div className="flex flex-col items-center justify-center gap-3">
-          {/* Footer Logo */}
-          <Link href="/" className="inline-block group">
-            <img
-              src="/images/footer_logo.png"
-              alt="Morgül Ticaret"
-              className="h-[44px] sm:h-[50px] w-auto object-contain transition-transform group-hover:scale-105"
-            />
-          </Link>
-
-          <p className="text-[12px] sm:text-[13px] text-gray-500 font-light">
-            © {new Date().getFullYear()} Morgül Menü — Tüm Hakları Saklıdır.
-          </p>
-        </div>
-      </footer>
+      {/* 11. Footer (Ortak Bileşen) */}
+      <Footer />
 
     </div>
   );
