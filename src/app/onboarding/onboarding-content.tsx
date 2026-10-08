@@ -240,7 +240,7 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
               setAuthMode("login");
               setErrorMsg("");
             }}
-            className="text-[13px] sm:text-[14px] text-neutral-600 hover:text-black font-medium transition"
+            className="hidden sm:inline-block text-[13px] sm:text-[14px] text-neutral-600 hover:text-black font-medium transition"
           >
             Zaten hesabınız var mı? <span className="underline font-semibold text-black">Giriş Yap</span>
           </button>
@@ -251,7 +251,7 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
               setAuthMode("register");
               setErrorMsg("");
             }}
-            className="text-[13px] sm:text-[14px] text-neutral-600 hover:text-black font-medium transition"
+            className="hidden sm:inline-block text-[13px] sm:text-[14px] text-neutral-600 hover:text-black font-medium transition"
           >
             Hesabınız yok mu? <span className="underline font-semibold text-black">Hemen Kayıt Ol</span>
           </button>
@@ -262,7 +262,7 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
               setAuthMode("login");
               setErrorMsg("");
             }}
-            className="text-[13px] sm:text-[14px] text-neutral-600 hover:text-black font-medium transition"
+            className="hidden sm:inline-block text-[13px] sm:text-[14px] text-neutral-600 hover:text-black font-medium transition"
           >
             ← <span className="underline font-semibold text-black">Giriş Yap&apos;a Dön</span>
           </button>
