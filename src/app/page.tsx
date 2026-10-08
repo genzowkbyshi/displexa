@@ -259,23 +259,23 @@ export default function LandingPage() {
         </div>
 
         {/* Hero Content Grid (1280px İçerik Kapsayıcısı) */}
-        <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6 pt-24 lg:pt-28 pb-14 relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6 sm:px-8 pt-24 lg:pt-28 pb-14 relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
             
             {/* Left Column: Text & CTA */}
-            <div className="lg:col-span-5 max-w-[520px]">
+            <div className="lg:col-span-6 max-w-[480px] xl:max-w-[520px]">
               {/* Title */}
               <motion.h1
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-[34px] sm:text-[42px] lg:text-[48px] 2xl:text-[56px] font-bold text-black leading-[1.14] tracking-tight"
+                className="text-[32px] sm:text-[40px] lg:text-[44px] xl:text-[50px] 2xl:text-[56px] font-bold text-black leading-[1.14] tracking-tight"
               >
                 Menünüzü
                 <br />
                 <span className="font-bold">Dijitale Taşıyın,</span>
                 <br />
-                <span className="font-playfair italic font-bold text-[26px] sm:text-[32px] lg:text-[38px] 2xl:text-[44px] text-black block mt-1 tracking-tight leading-[1.2]">
+                <span className="font-playfair italic font-bold text-[24px] sm:text-[30px] lg:text-[34px] xl:text-[38px] 2xl:text-[44px] text-black block mt-1 tracking-tight leading-[1.2]">
                   işletmenizi büyütün.
                 </span>
               </motion.h1>
@@ -285,7 +285,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="mt-4 sm:mt-5 text-[15px] sm:text-[16px] lg:text-[17px] 2xl:text-[19px] font-light text-black leading-[1.45] max-w-[460px]"
+                className="mt-4 sm:mt-5 text-[15px] sm:text-[16px] lg:text-[17px] xl:text-[18px] font-light text-black leading-[1.45] max-w-[440px]"
               >
                 Saniyeler içinde kayıt olun. Ürünlerinizi ekleyin, fiyatlarınızı anında güncelleyin. Modern ve hızlı QR menü ile işletmenize değer katın.
               </motion.p>
@@ -299,31 +299,31 @@ export default function LandingPage() {
               >
                 <Link
                   href="/onboarding"
-                  className="w-full sm:w-auto h-[46px] sm:h-[48px] px-8 rounded-full bg-black text-white text-[15px] sm:text-[16px] font-medium hover:bg-neutral-800 transition-all hover:scale-105 active:scale-95 hover:shadow-md flex items-center justify-center text-center"
+                  className="w-full sm:w-auto h-[46px] sm:h-[48px] px-7 sm:px-8 rounded-full bg-black text-white text-[15px] sm:text-[16px] font-medium hover:bg-neutral-800 transition-all hover:scale-105 active:scale-95 hover:shadow-md flex items-center justify-center text-center"
                 >
                   Ücretsiz Deneyin
                 </Link>
                 <a
                   href="#ozellikler"
-                  className="w-full sm:w-auto h-[46px] sm:h-[48px] px-8 rounded-full bg-white text-black text-[15px] sm:text-[16px] font-medium border border-[#D2D2D2] hover:border-black transition-all hover:scale-105 active:scale-95 hover:shadow-sm flex items-center justify-center text-center"
+                  className="w-full sm:w-auto h-[46px] sm:h-[48px] px-7 sm:px-8 rounded-full bg-white text-black text-[15px] sm:text-[16px] font-medium border border-[#D2D2D2] hover:border-black transition-all hover:scale-105 active:scale-95 hover:shadow-sm flex items-center justify-center text-center"
                 >
                   Özellikleri Keşfedin
                 </a>
               </motion.div>
             </div>
 
-            {/* Right Column: Hero Graphic Mockup Composition (Enlarged) */}
-            <div className="lg:col-span-7 flex items-center justify-center lg:justify-end">
+            {/* Right Column: Hero Graphic Mockup Composition */}
+            <div className="lg:col-span-6 flex items-center justify-center lg:justify-end">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.15 }}
-                className="w-full max-w-[680px] lg:max-w-none flex justify-center lg:justify-end lg:scale-105 xl:scale-110 2xl:scale-115 origin-center lg:origin-right"
+                className="w-full max-w-[560px] lg:max-w-none flex justify-center lg:justify-end"
               >
                 <img
                   src="/images/hero_mockup.png"
                   alt="Morgül Menü Yönetim Ekranı ve QR Özellikleri"
-                  className="w-full h-auto max-h-[500px] lg:max-h-[580px] 2xl:max-h-[640px] object-contain drop-shadow-2xl"
+                  className="w-full h-auto max-h-[420px] sm:max-h-[460px] lg:max-h-[500px] xl:max-h-[540px] 2xl:max-h-[580px] object-contain drop-shadow-2xl"
                 />
               </motion.div>
             </div>
