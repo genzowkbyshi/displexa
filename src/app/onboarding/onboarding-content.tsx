@@ -225,8 +225,8 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
     <div className="min-h-screen bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white text-black font-sans selection:bg-black selection:text-white flex flex-col justify-between p-4 sm:p-6 lg:p-8 relative">
       
       {/* Top Header / Navigation */}
-      <div className="w-full max-w-xl mx-auto flex items-center justify-between py-2">
-        <Link href="/" className="inline-flex items-center gap-2 group">
+      <div className="w-full max-w-xl mx-auto flex items-center justify-between py-2 px-3 sm:px-2">
+        <Link href="/" className="inline-flex items-center gap-2 group pl-1.5 sm:pl-0">
           <img
             src="/images/logo.png"
             alt="MorgülMenü"
@@ -234,10 +234,10 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
           />
         </Link>
 
-        {/* Mobile: Anasayfaya Dön Butonu (Sade, arka plansız metin) */}
+        {/* Mobile: Anasayfaya Dön Butonu (Sade, sola kaydırılmış metin) */}
         <Link
           href="/"
-          className="sm:hidden text-[13px] font-normal text-neutral-500 hover:text-black flex items-center gap-1 transition active:opacity-70"
+          className="sm:hidden text-[13px] font-normal text-neutral-500 hover:text-black flex items-center gap-1 transition active:opacity-70 pr-1.5 sm:pr-0"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Anasayfa</span>
