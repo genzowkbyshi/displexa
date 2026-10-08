@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Sparkles,
   LogIn,
+  KeyRound,
 } from "lucide-react";
 import {
   onboardingSession,
@@ -25,14 +26,14 @@ import {
 } from "@/services/onboarding.service";
 
 interface OnboardingContentProps {
-  defaultMode?: "register" | "login";
+  defaultMode?: "register" | "login" | "forgot-password";
 }
 
 export default function OnboardingContent({ defaultMode = "register" }: OnboardingContentProps) {
   const searchParams = useSearchParams();
-  const urlMode = searchParams?.get("mode") as "register" | "login" | null;
+  const urlMode = searchParams?.get("mode") as "register" | "login" | "forgot-password" | null;
 
-  const [authMode, setAuthMode] = useState<"register" | "login">(urlMode || defaultMode);
+  const [authMode, setAuthMode] = useState<"register" | "login" | "forgot-password">(urlMode || defaultMode);
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -47,6 +48,10 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
 
   // State for login form
   const [loginData, setLoginData] = useState({ email: "", password: "" });
+
+  // State for forgot password form
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotSent, setForgotSent] = useState(false);
 
   useEffect(() => {
     if (urlMode) {
@@ -195,6 +200,16 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
     }
   };
 
+  const handleForgotSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMsg("");
+    setTimeout(() => {
+      setLoading(false);
+      setForgotSent(true);
+    }, 600);
+  };
+
   const steps = [
     { title: "Hesap", icon: User },
     { title: "Doğrulama", icon: CheckCircle2 },
@@ -229,7 +244,7 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
           >
             Zaten hesabınız var mı? <span className="underline font-semibold text-black">Giriş Yap</span>
           </button>
-        ) : (
+        ) : authMode === "login" ? (
           <button
             type="button"
             onClick={() => {
@@ -239,6 +254,17 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
             className="text-[13px] sm:text-[14px] text-neutral-600 hover:text-black font-medium transition"
           >
             Hesabınız yok mu? <span className="underline font-semibold text-black">Hemen Kayıt Ol</span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => {
+              setAuthMode("login");
+              setErrorMsg("");
+            }}
+            className="text-[13px] sm:text-[14px] text-neutral-600 hover:text-black font-medium transition"
+          >
+            ← <span className="underline font-semibold text-black">Giriş Yap&apos;a Dön</span>
           </button>
         )}
       </div>
@@ -252,7 +278,7 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
           className="bg-white border border-black/[0.08] p-6 sm:p-10 rounded-[32px] shadow-xl relative overflow-hidden"
         >
           {/* Top Segmented Tab Switcher (Ayrımı tamamen kaldıran modern sekme) */}
-          {currentStep === 0 && (
+          {currentStep === 0 && authMode !== "forgot-password" && (
             <div className="flex p-1 bg-neutral-100 rounded-full mb-8 max-w-[280px] mx-auto border border-black/[0.05]">
               <button
                 type="button"
@@ -335,12 +361,18 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
                 <div className="flex flex-col gap-1.5">
                   <div className="flex items-center justify-between">
                     <label className="text-[13px] font-medium text-neutral-700">Şifre</label>
-                    <a
-                      href="https://app.displexa.com/forgot-password"
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAuthMode("forgot-password");
+                        setErrorMsg("");
+                        setForgotSent(false);
+                        setForgotEmail(loginData.email);
+                      }}
                       className="text-[12px] text-neutral-500 hover:text-black transition"
                     >
                       Şifremi unuttum?
-                    </a>
+                    </button>
                   </div>
                   <input
                     required
@@ -375,6 +407,89 @@ export default function OnboardingContent({ defaultMode = "register" }: Onboardi
                   Hemen Kayıt Olun
                 </button>
               </div>
+            </div>
+          )}
+
+          {/* ==================== FORGOT PASSWORD MODE ==================== */}
+          {authMode === "forgot-password" && (
+            <div>
+              <div className="mb-6 text-center">
+                <div className="w-14 h-14 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-black border border-black/10 shadow-xs">
+                  <KeyRound className="w-6 h-6" />
+                </div>
+                <h1 className="text-[22px] sm:text-[26px] font-bold text-black tracking-tight">
+                  Şifrenizi mi Unuttunuz?
+                </h1>
+                <p className="text-[13px] sm:text-[14px] text-neutral-500 font-light mt-1 max-w-[380px] mx-auto">
+                  Hesabınıza bağlı e-posta adresinizi girin, şifre sıfırlama bağlantısını hemen gönderelim.
+                </p>
+              </div>
+
+              {errorMsg && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200/80 rounded-2xl text-red-700 text-[13px] font-medium flex items-center gap-2">
+                  <span>{errorMsg}</span>
+                </div>
+              )}
+
+              {forgotSent ? (
+                <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-center space-y-4">
+                  <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-[18px] font-bold text-emerald-900">
+                    Sıfırlama Bağlantısı Gönderildi!
+                  </h3>
+                  <p className="text-[13px] text-emerald-800 font-light leading-relaxed">
+                    <strong>{forgotEmail}</strong> adresine şifre sıfırlama talimatları gönderildi. Lütfen gelen kutunuzu ve spam klasörünüzü kontrol edin.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAuthMode("login");
+                      setForgotSent(false);
+                    }}
+                    className="mt-2 w-full h-11 rounded-full bg-black text-white text-[14px] font-medium hover:bg-neutral-800 transition"
+                  >
+                    Giriş Ekranına Dön
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleForgotSubmit} className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[13px] font-medium text-neutral-700">E-Posta Adresi</label>
+                    <input
+                      required
+                      type="email"
+                      placeholder="ornek@restoran.com"
+                      value={forgotEmail}
+                      onChange={(e) => setForgotEmail(e.target.value)}
+                      className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="mt-3 h-12 bg-black text-white hover:bg-neutral-800 rounded-full font-medium text-[15px] flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-95 disabled:opacity-50 transition-all"
+                  >
+                    {loading ? "Gönderiliyor..." : "Sıfırlama Bağlantısı Gönder"}
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+
+                  <div className="mt-4 text-center">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAuthMode("login");
+                        setErrorMsg("");
+                      }}
+                      className="text-[13px] font-medium text-neutral-600 hover:text-black transition"
+                    >
+                      ← Giriş Yap&apos;a Dön
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           )}
 
