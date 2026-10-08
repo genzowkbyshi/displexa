@@ -269,7 +269,7 @@ export default function LandingPage() {
         </div>
 
         {/* Hero Content Grid (1280px İçerik Kapsayıcısı) */}
-        <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-5 sm:px-8 pt-16 sm:pt-20 lg:pt-24 pb-6 sm:pb-8 lg:pb-10 relative z-10 w-full">
+        <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-5 sm:px-8 pt-24 sm:pt-28 lg:pt-32 xl:pt-36 pb-8 sm:pb-10 lg:pb-12 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
             
             {/* Left Column: Text & CTA (Mobile Centered / Desktop Left-Aligned) */}
