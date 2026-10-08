@@ -195,11 +195,21 @@ export default function LandingPage() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
   const [activeModalFaq, setActiveModalFaq] = useState<typeof FAQ_ITEMS[0] | null>(null);
 
-  // Scroll-driven scaling animation for the black feature slider card
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Scroll-driven scaling animation for the black feature slider card (Desktop only)
   const sliderSectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sliderSectionRef,
-    // Kart ekranın altına girdiğinde başlar, kartın üstü ekranın ortasına gelene kadar hızlıca tam boyuta (1.0) ulaşır
     offset: ["start end", "start center"],
   });
 
@@ -338,8 +348,8 @@ export default function LandingPage() {
       >
         <motion.div
           style={{
-            scale: smoothScale,
-            opacity: smoothOpacity,
+            scale: isDesktop ? smoothScale : 1,
+            opacity: isDesktop ? smoothOpacity : 1,
           }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
@@ -375,12 +385,12 @@ export default function LandingPage() {
               })}
             </div>
 
-            {/* Slide Title & Description */}
-            <div className="text-center w-full min-h-[95px] flex flex-col justify-center px-2">
-              <h3 className="text-[22px] sm:text-[24px] font-medium tracking-tight text-white mb-2 leading-snug">
+            {/* Slide Title & Description (Sabit yükseklikli, sıfır zıplamalı) */}
+            <div className="text-center w-full min-h-[115px] sm:min-h-[125px] flex flex-col justify-center px-2">
+              <h3 className="text-[21px] sm:text-[24px] font-medium tracking-tight text-white mb-1.5 leading-snug">
                 {SLIDES[activeSlide].title}
               </h3>
-              <p className="text-gray-400 text-[13px] sm:text-[14px] font-normal leading-relaxed max-w-[340px] mx-auto">
+              <p className="text-gray-400 text-[13px] sm:text-[14px] font-normal leading-relaxed max-w-[340px] mx-auto min-h-[44px] flex items-center justify-center">
                 {SLIDES[activeSlide].description}
               </p>
             </div>
@@ -599,10 +609,10 @@ export default function LandingPage() {
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center w-full">
             
-            {/* Left Content */}
-            <div className="lg:col-span-6 p-6 sm:p-8 lg:py-12 lg:pl-12 xl:pl-20 2xl:pl-28 lg:pr-6 flex flex-col justify-center">
+            {/* Left Content (Mobile: Ortalanmış, Desktop: Sola dayalı) */}
+            <div className="lg:col-span-6 p-6 sm:p-8 lg:py-12 lg:pl-12 xl:pl-20 2xl:pl-28 lg:pr-6 flex flex-col justify-center text-center lg:text-left">
               <motion.h2
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4 }}
@@ -612,45 +622,45 @@ export default function LandingPage() {
               </motion.h2>
 
               <motion.p
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="mt-3.5 sm:mt-4 text-[14px] sm:text-[15px] lg:text-[16px] 2xl:text-[19px] font-light text-[#5D5D5D] leading-relaxed max-w-[480px]"
+                className="mt-3.5 sm:mt-4 text-[14px] sm:text-[15px] lg:text-[16px] 2xl:text-[19px] font-light text-[#5D5D5D] leading-relaxed max-w-[480px] mx-auto lg:mx-0"
               >
                 Saniyeler içinde kayıt olun. Ürünlerinizi ekleyin, fiyatlarınızı anında güncelleyin. Modern ve hızlı QR menü ile müşterilerinize kolayca ulaşın.
               </motion.p>
 
-              {/* App Store & Google Play Badges */}
+              {/* App Store & Google Play Badges (Mobilde Yan Yana ve Ortalanmış) */}
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4"
+                transition={{ duration: 0.4, delay: 0.15 }}
+                className="mt-6 sm:mt-8 flex items-center justify-center lg:justify-start gap-3 sm:gap-4 flex-nowrap"
               >
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  className="inline-block hover:scale-105 active:scale-95 transition-transform"
+                  className="inline-block hover:scale-105 active:scale-95 transition-transform shrink-0"
                   aria-label="Google Play'den İndirin"
                 >
                   <img
                     src="/images/googleplay.png"
                     alt="Google Play"
-                    className="w-[140px] sm:w-[160px] lg:w-[180px] h-auto object-contain"
+                    className="w-[130px] sm:w-[155px] lg:w-[180px] h-auto object-contain"
                   />
                 </a>
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  className="inline-block hover:scale-105 active:scale-95 transition-transform"
+                  className="inline-block hover:scale-105 active:scale-95 transition-transform shrink-0"
                   aria-label="App Store'dan İndirin"
                 >
                   <img
                     src="/images/appstore.png"
                     alt="App Store"
-                    className="w-[140px] sm:w-[160px] lg:w-[180px] h-auto object-contain"
+                    className="w-[130px] sm:w-[155px] lg:w-[180px] h-auto object-contain"
                   />
                 </a>
               </motion.div>
