@@ -247,23 +247,24 @@ export default function LandingPage() {
             />
           </Link>
 
-          {/* Navigation Links (Figma Güncel Menü) */}
-          <nav className="hidden md:flex items-center gap-7 lg:gap-9 text-[14px] sm:text-[15px] font-normal text-black">
-            <a href="#ozellikler" className="hover:opacity-70 transition-opacity">
-              Özellikler
-            </a>
-            <a href="#fiyatlar" className="hover:opacity-70 transition-opacity">
-              Fiyatlandırma
-            </a>
-            <a href="#sss" className="hover:opacity-70 transition-opacity">
-              Destek/SSS
-            </a>
-            <a href="#blog" className="hover:opacity-70 transition-opacity">
-              Blog
-            </a>
-            <a href="#iletisim" className="hover:opacity-70 transition-opacity">
-              İletişim
-            </a>
+          {/* Navigation Links (Figma Güncel Menü - Belirgin Hover Efekti) */}
+          <nav className="hidden md:flex items-center gap-1.5 lg:gap-2.5 text-[14px] sm:text-[15px] text-black">
+            {[
+              { label: "Özellikler", href: "#ozellikler" },
+              { label: "Fiyatlandırma", href: "#fiyatlar" },
+              { label: "Destek/SSS", href: "#sss" },
+              { label: "Blog", href: "#blog" },
+              { label: "İletişim", href: "#iletisim" },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="relative px-3.5 py-1.5 rounded-full text-neutral-700 hover:text-black hover:bg-black/[0.08] transition-all duration-200 font-medium active:scale-95 group"
+              >
+                <span>{item.label}</span>
+                <span className="absolute bottom-1 inset-x-3.5 h-[2px] bg-black scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-center rounded-full" />
+              </a>
+            ))}
           </nav>
 
           {/* Header Action Button */}
@@ -278,7 +279,7 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* 2. Hero Section (Figma Yeni Banner + Sağ Mockup Kompozisyonu) */}
+      {/* 2. Hero Section (Figma Yeni Banner + Sağ Mockup Kompozisyonu - 1280px Container) */}
       <section className="relative min-h-[620px] lg:min-h-[700px] 2xl:min-h-[820px] flex items-center overflow-hidden bg-[#fafafa]">
         {/* Background Banner Image */}
         <div className="absolute inset-0 z-0">
@@ -293,8 +294,8 @@ export default function LandingPage() {
           <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
         </div>
 
-        {/* Hero Content Grid (Sol Metin + Sağ Mockup Kompozisyonu) */}
-        <div className="container max-w-[1720px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 pt-24 lg:pt-28 pb-14 relative z-10">
+        {/* Hero Content Grid (1280px İçerik Kapsayıcısı) */}
+        <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6 pt-24 lg:pt-28 pb-14 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
             {/* Left Column: Text & CTA */}
@@ -367,28 +368,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 3. Transition Headline (Standart Dikey Ritim: pt-14 lg:pt-16 pb-6 lg:pb-8) */}
-      <section className="pt-14 lg:pt-16 pb-6 lg:pb-8 px-6 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto">
-        <div className="pl-2 sm:pl-4 lg:pl-10 xl:pl-14 2xl:pl-20 max-w-[960px] text-left">
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-[22px] sm:text-[26px] lg:text-[32px] 2xl:text-[38px] font-medium text-black leading-[1.28] tracking-tight text-left"
-          >
-            Saniyeler içinde kayıt olun. Ürünlerinizi ekleyin,
-            <br className="hidden sm:inline" /> fiyatlarınızı anında güncelleyin. Modern ve hızlı
-            <br className="hidden sm:inline" /> QR menü ile restoranınıza değer katın.
-          </motion.h2>
-        </div>
-      </section>
-
       {/* 4. Siyah Özellik Slider Kartı (Scroll Zoom In / Out Efekti) */}
       <section 
         id="ozellikler" 
         ref={sliderSectionRef}
-        className="pb-14 lg:pb-18 px-6 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto overflow-hidden"
+        className="py-14 lg:py-18 px-6 sm:px-10 lg:px-14 xl:px-16 max-w-[1720px] mx-auto overflow-hidden"
       >
         <motion.div
           style={{
