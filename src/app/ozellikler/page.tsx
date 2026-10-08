@@ -165,7 +165,7 @@ export default function FeaturesPage() {
       <Navbar variant="sticky" />
 
       {/* Hero Section */}
-      <section className="relative pt-16 sm:pt-20 pb-12 sm:pb-16 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04]">
+      <section className="relative pt-12 sm:pt-16 pb-6 sm:pb-8 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04]">
         <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -219,7 +219,7 @@ export default function FeaturesPage() {
           </motion.div>
 
           {/* Quick Metrics Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-14 pt-10 border-t border-black/[0.06] max-w-[1000px] mx-auto text-left sm:text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-black/[0.06] max-w-[1000px] mx-auto text-left sm:text-center">
             <div>
               <div className="text-[28px] sm:text-[36px] font-bold text-black">&lt; 1 sn</div>
               <div className="text-[13px] text-neutral-500 font-light">Menü Açılış Hızı</div>
@@ -241,7 +241,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* Feature Pillars (Alternating Showcases) */}
-      <section className="py-16 lg:py-24 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6 space-y-20 lg:space-y-28">
+      <section className="pt-8 sm:pt-10 lg:pt-14 pb-16 lg:pb-24 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6 space-y-20 lg:space-y-28">
         {FEATURE_PILLARS.map((pillar, idx) => (
           <div
             key={pillar.title}

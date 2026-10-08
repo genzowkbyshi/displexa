@@ -38,7 +38,7 @@ export default function BlogPage() {
       <Navbar variant="sticky" />
 
       {/* Hero Section */}
-      <section className="pt-16 sm:pt-20 pb-12 sm:pb-16 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04]">
+      <section className="pt-12 sm:pt-16 pb-6 sm:pb-8 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04]">
         <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -71,7 +71,7 @@ export default function BlogPage() {
           </motion.p>
 
           {/* Search bar */}
-          <div className="mt-8 max-w-[540px] mx-auto relative">
+          <div className="mt-6 sm:mt-8 max-w-[540px] mx-auto relative">
             <Search className="w-5 h-5 text-neutral-400 absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
@@ -83,7 +83,7 @@ export default function BlogPage() {
           </div>
 
           {/* Category Filter Pills */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-2">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
@@ -104,7 +104,7 @@ export default function BlogPage() {
 
       {/* Featured Blog Article (Only when searching Tümü and no query) */}
       {selectedCategory === "Tümü" && searchQuery === "" && featuredPost && (
-        <section className="pt-12 pb-6 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
+        <section className="pt-8 sm:pt-10 pb-4 sm:pb-6 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
           <Link
             href={`/blog/${featuredPost.slug}`}
             className="group block bg-[#FAFBFD] rounded-[32px] border border-black/[0.08] overflow-hidden hover:border-black/30 hover:shadow-xl transition-all duration-300"
@@ -156,7 +156,7 @@ export default function BlogPage() {
       )}
 
       {/* Blog Cards Grid */}
-      <section className="py-12 lg:py-16 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
+      <section className="pt-8 sm:pt-10 pb-12 lg:pb-16 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post) => (
             <Link

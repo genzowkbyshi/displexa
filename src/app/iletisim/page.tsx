@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   Sparkles,
   MessageCircle,
+  ChevronDown,
 } from "lucide-react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -54,7 +55,7 @@ export default function ContactPage() {
       <Navbar variant="sticky" />
 
       {/* Hero Section */}
-      <section className="pt-16 sm:pt-20 pb-12 sm:pb-16 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04] text-center">
+      <section className="pt-12 sm:pt-16 pb-6 sm:pb-8 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04] text-center">
         <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -89,7 +90,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Content Grid (Sol: Form, Sağ: Bilgiler) */}
-      <section className="py-16 lg:py-24 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
+      <section className="pt-8 sm:pt-10 pb-16 lg:pb-24 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* Left Column: Form */}
@@ -188,17 +189,22 @@ export default function ContactPage() {
                   <label className="block text-[13px] font-medium text-neutral-800 mb-2">
                     Görüşme Konusu
                   </label>
-                  <select
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full h-12 px-4 rounded-xl bg-white border border-black/15 text-[14px] focus:outline-none focus:border-black transition"
-                  >
-                    <option value="Satış & Bilgi Talebi">Satış & Paket Bilgisi</option>
-                    <option value="Teknik Destek">Teknik Destek & Kurulum</option>
-                    <option value="Çoklu Şube / Franchise">Çoklu Şube & Özel Teklif</option>
-                    <option value="Öneri / Geri Bildirim">Öneri veya Şikayet</option>
-                    <option value="Diğer">Diğer</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      className="w-full h-12 pl-4 pr-11 rounded-xl bg-white border border-black/15 text-[14px] focus:outline-none focus:border-black transition appearance-none cursor-pointer"
+                    >
+                      <option value="Satış & Bilgi Talebi">Satış & Paket Bilgisi</option>
+                      <option value="Teknik Destek">Teknik Destek & Kurulum</option>
+                      <option value="Çoklu Şube / Franchise">Çoklu Şube & Özel Teklif</option>
+                      <option value="Öneri / Geri Bildirim">Öneri veya Şikayet</option>
+                      <option value="Diğer">Diğer</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-500">
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Message */}

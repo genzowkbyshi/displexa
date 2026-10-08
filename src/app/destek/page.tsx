@@ -141,7 +141,7 @@ export default function SupportFaqPage() {
       <Navbar variant="sticky" />
 
       {/* Hero Section */}
-      <section className="pt-16 sm:pt-20 pb-12 sm:pb-16 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04]">
+      <section className="pt-12 sm:pt-16 pb-6 sm:pb-8 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04]">
         <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -174,7 +174,7 @@ export default function SupportFaqPage() {
           </motion.p>
 
           {/* Search Box */}
-          <div className="mt-8 max-w-[640px] mx-auto relative">
+          <div className="mt-6 sm:mt-8 max-w-[640px] mx-auto relative">
             <Search className="w-5 h-5 text-neutral-400 absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
@@ -186,7 +186,7 @@ export default function SupportFaqPage() {
           </div>
 
           {/* Category Filter Pills */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-2">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
@@ -206,7 +206,7 @@ export default function SupportFaqPage() {
       </section>
 
       {/* FAQ Accordion Section */}
-      <section className="py-14 lg:py-20 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
+      <section className="pt-8 sm:pt-10 lg:pt-12 pb-14 lg:pb-20 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
         <div className="max-w-[860px] mx-auto space-y-4">
           {filteredFaqs.length === 0 ? (
             <div className="text-center py-16 bg-[#FAFAFB] rounded-[28px] border border-black/[0.06]">

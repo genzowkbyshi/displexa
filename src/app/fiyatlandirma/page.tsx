@@ -128,7 +128,7 @@ export default function PricingPage() {
       <Navbar variant="sticky" />
 
       {/* Hero Section */}
-      <section className="pt-16 sm:pt-20 pb-12 sm:pb-16 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04] text-center">
+      <section className="pt-12 sm:pt-16 pb-6 sm:pb-8 bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white border-b border-black/[0.04] text-center">
         <div className="max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -161,7 +161,7 @@ export default function PricingPage() {
           </motion.p>
 
           {/* Billing Switcher */}
-          <div className="mt-10 inline-flex items-center p-1.5 rounded-full bg-neutral-100 border border-black/[0.06]">
+          <div className="mt-6 sm:mt-8 inline-flex items-center p-1.5 rounded-full bg-neutral-100 border border-black/[0.06]">
             <button
               type="button"
               onClick={() => setBillingCycle("monthly")}
@@ -194,7 +194,7 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-14 lg:py-20 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
+      <section className="pt-8 sm:pt-10 lg:pt-12 pb-14 lg:pb-20 max-w-[1080px] xl:max-w-[1200px] 2xl:max-w-[1280px] mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {PLANS.map((plan) => {
             const price = billingCycle === "yearly" ? plan.yearlyPrice : plan.monthlyPrice;
