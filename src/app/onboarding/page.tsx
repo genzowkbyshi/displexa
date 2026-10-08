@@ -1,15 +1,25 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { CheckCircle2, Building, Package, ChevronRight, User } from "lucide-react";
+import {
+  CheckCircle2,
+  Building,
+  Package,
+  ChevronRight,
+  User,
+  ArrowLeft,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import {
   onboardingSession,
   onboardingRegister,
   onboardingVerify,
   onboardingCompany,
   getOnboardingPackages,
-  onboardingPackage
+  onboardingPackage,
 } from "@/services/onboarding.service";
 
 export default function OnboardingPage() {
@@ -60,7 +70,7 @@ export default function OnboardingPage() {
         google_token: "Google hesabınız doğrulanamadı. Lütfen tekrar deneyin.",
         session: "Kayıt oturumu başlatılamadı. Lütfen tekrar deneyin.",
         registered: "Bu e-posta adresi zaten kayıtlı. Lütfen giriş yapın.",
-        failed: "Google ile kayıt tamamlanamadı."
+        failed: "Google ile kayıt tamamlanamadı.",
       };
 
       setErrorMsg(messages[googleError] || "Google ile kayıt tamamlanamadı.");
@@ -92,7 +102,7 @@ export default function OnboardingPage() {
       setLoading(true);
       await onboardingVerify({
         challengeId: challengeId || verData.customChallengeId,
-        verificationCode: verData.verificationCode
+        verificationCode: verData.verificationCode,
       });
       setCurrentStep(2);
     } catch (error: any) {
@@ -115,20 +125,22 @@ export default function OnboardingPage() {
     try {
       setLoading(true);
       await onboardingCompany({ ...comData, phone });
-      
+
       const pkgRes = await getOnboardingPackages();
       if (pkgRes && pkgRes.items) {
-        const selectablePackages = pkgRes.items.filter((item: any) => item.supportsMonthly || item.supportsYearly);
+        const selectablePackages = pkgRes.items.filter(
+          (item: any) => item.supportsMonthly || item.supportsYearly
+        );
         setPackages(selectablePackages);
         const firstPackage = selectablePackages[0];
         if (firstPackage) {
           setPkgData({
             packageId: firstPackage.id,
-            billingCycle: getDefaultBillingCycle(firstPackage)
+            billingCycle: getDefaultBillingCycle(firstPackage),
           });
         }
       }
-      
+
       setCurrentStep(3);
     } catch (error: any) {
       setErrorMsg(error.title || error.message || "Firma eklenirken hata oluştu.");
@@ -155,88 +167,187 @@ export default function OnboardingPage() {
     { title: "Hesap", icon: User },
     { title: "Doğrulama", icon: CheckCircle2 },
     { title: "İşletme", icon: Building },
-    { title: "Paket", icon: Package }
+    { title: "Paket", icon: Package },
   ];
 
   const selectedPackage = packages.find((item: any) => item.id === pkgData.packageId);
   const availableBillingCycles = selectedPackage ? getAvailableBillingCycles(selectedPackage) : [];
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
-      {/* Background Effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
+    <div className="min-h-screen bg-gradient-to-b from-[#FAFBFD] via-[#F4F6F9] to-white text-black font-sans selection:bg-black selection:text-white flex flex-col justify-between p-4 sm:p-6 lg:p-8 relative">
+      
+      {/* Top Header / Navigation */}
+      <div className="w-full max-w-xl mx-auto flex items-center justify-between py-2">
+        <Link href="/" className="inline-flex items-center gap-2 group">
+          <img
+            src="/images/logo.png"
+            alt="MorgülMenü"
+            className="h-[24px] sm:h-[28px] w-auto object-contain transition-transform group-hover:scale-105"
+          />
+        </Link>
 
-      <div className="w-full max-w-xl relative z-10">
+        <a
+          href="https://app.displexa.com/login"
+          className="text-[13px] sm:text-[14px] text-neutral-600 hover:text-black font-medium transition"
+        >
+          Zaten hesabınız var mı? <span className="underline font-semibold text-black">Giriş Yap</span>
+        </a>
+      </div>
+
+      {/* Main Form Card Container */}
+      <div className="w-full max-w-xl mx-auto my-auto py-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-md shadow-2xl"
+          transition={{ duration: 0.4 }}
+          className="bg-white border border-black/[0.08] p-6 sm:p-10 rounded-[32px] shadow-xl relative overflow-hidden"
         >
           {currentStep < 4 ? (
             <>
               {/* Stepper Header */}
-              <div className="flex items-center justify-between mb-8 relative">
-                <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white/10 -translate-y-1/2 -z-10" />
-                {steps.map((step, idx) => {
-                  const Icon = step.icon;
-                  const isActive = currentStep === idx;
-                  const isPast = currentStep > idx;
-                  return (
-                    <div key={idx} className="flex flex-col items-center gap-2">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors ${
-                        isActive ? 'bg-orange-500 border-orange-500 text-white shadow-[0_0_15px_rgba(249,115,22,0.5)]' :
-                        isPast ? 'bg-orange-500/20 border-orange-500/50 text-orange-400' :
-                        'bg-black border-white/10 text-gray-500'
-                      }`}>
-                        <Icon className="w-5 h-5" />
+              <div className="mb-8">
+                <div className="flex items-center justify-between relative">
+                  {/* Progress Line */}
+                  <div className="absolute top-1/2 left-4 right-4 h-[2px] bg-neutral-200 -translate-y-1/2 -z-0" />
+                  <div
+                    className="absolute top-1/2 left-4 h-[2px] bg-black -translate-y-1/2 -z-0 transition-all duration-300"
+                    style={{
+                      width: `${(currentStep / (steps.length - 1)) * 92}%`,
+                    }}
+                  />
+
+                  {steps.map((step, idx) => {
+                    const Icon = step.icon;
+                    const isActive = currentStep === idx;
+                    const isPast = currentStep > idx;
+
+                    return (
+                      <div key={idx} className="flex flex-col items-center gap-1.5 relative z-10">
+                        <div
+                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                            isActive
+                              ? "bg-black text-white shadow-md scale-105"
+                              : isPast
+                              ? "bg-black text-white"
+                              : "bg-white border border-neutral-300 text-neutral-400"
+                          }`}
+                        >
+                          {isPast ? (
+                            <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                          ) : (
+                            <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                          )}
+                        </div>
+                        <span
+                          className={`text-[11px] sm:text-[12px] font-medium transition-colors ${
+                            isActive ? "text-black font-bold" : isPast ? "text-neutral-700" : "text-neutral-400"
+                          }`}
+                        >
+                          {step.title}
+                        </span>
                       </div>
-                      <span className={`text-xs font-medium ${isActive ? 'text-white' : 'text-gray-500'}`}>
-                        {step.title}
-                      </span>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Title & Description */}
+              <div className="mb-6 text-center">
+                <h1 className="text-[22px] sm:text-[26px] font-bold text-black tracking-tight">
+                  {currentStep === 0 && "Hesabınızı Oluşturun"}
+                  {currentStep === 1 && "E-Posta Doğrulama"}
+                  {currentStep === 2 && "İşletme Bilgileri"}
+                  {currentStep === 3 && "Paket ve Plan Seçimi"}
+                </h1>
+                <p className="text-[13px] sm:text-[14px] text-neutral-500 font-light mt-1">
+                  {currentStep === 0 && "14 günlük ücretsiz denemenizi hemen başlatın."}
+                  {currentStep === 1 && "E-posta adresinize gönderilen güvenlik kodunu girin."}
+                  {currentStep === 2 && "Restoranınızın panel adını ve iletişim numarasını belirleyin."}
+                  {currentStep === 3 && "İşletmenizin ihtiyacına uygun paketi seçin."}
+                </p>
               </div>
 
               {/* Error Alert */}
               {errorMsg && (
-                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
-                  {errorMsg}
+                <div className="mb-6 p-4 bg-red-50 border border-red-200/80 rounded-2xl text-red-700 text-[13px] font-medium flex items-center gap-2">
+                  <span>{errorMsg}</span>
                 </div>
               )}
 
               {/* Step 0: Register */}
               {currentStep === 0 && (
                 <form onSubmit={handleRegister} className="flex flex-col gap-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-sm text-gray-400">Ad</label>
-                      <input required type="text" value={regData.firstName} onChange={e => setRegData({...regData, firstName: e.target.value})} className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors" />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-sm text-gray-400">Soyad</label>
-                      <input required type="text" value={regData.lastName} onChange={e => setRegData({...regData, lastName: e.target.value})} className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors" />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-sm text-gray-400">E-posta</label>
-                    <input required type="email" value={regData.email} onChange={e => setRegData({...regData, email: e.target.value})} className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors" />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-sm text-gray-400">Şifre</label>
-                    <input required type="password" value={regData.password} onChange={e => setRegData({...regData, password: e.target.value})} className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors" />
-                  </div>
-                  <a href="/api/auth/google/register/start" className="h-12 bg-white text-black rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-gray-100 transition-all">
+                  {/* Google Sign-in */}
+                  <a
+                    href="/api/auth/google/register/start"
+                    className="h-12 bg-white text-black border border-black/15 hover:border-black rounded-full font-medium text-[14px] flex items-center justify-center gap-3 transition-all shadow-xs active:scale-95"
+                  >
                     <GoogleIcon />
-                    Google ile kayıt ol
+                    Google ile Hızlı Kayıt Ol
                   </a>
-                  <div className="flex items-center gap-3 text-xs uppercase tracking-wide text-gray-500">
-                    <span className="h-px flex-1 bg-white/10" />
-                    veya
-                    <span className="h-px flex-1 bg-white/10" />
+
+                  <div className="flex items-center gap-3 text-[12px] uppercase tracking-wider text-neutral-400 my-1">
+                    <span className="h-px flex-1 bg-black/10" />
+                    veya e-posta ile
+                    <span className="h-px flex-1 bg-black/10" />
                   </div>
-                  <button type="submit" disabled={loading} className="mt-4 h-12 bg-gradient-to-r from-orange-500 to-rose-500 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-50 transition-all">
-                    {loading ? 'İşleniyor...' : 'Hesabı Oluştur'} <ChevronRight className="w-5 h-5" />
+
+                  <div className="grid grid-cols-2 gap-3.5">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[13px] font-medium text-neutral-700">Ad</label>
+                      <input
+                        required
+                        type="text"
+                        placeholder="Ahmet"
+                        value={regData.firstName}
+                        onChange={(e) => setRegData({ ...regData, firstName: e.target.value })}
+                        className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[13px] font-medium text-neutral-700">Soyad</label>
+                      <input
+                        required
+                        type="text"
+                        placeholder="Yılmaz"
+                        value={regData.lastName}
+                        onChange={(e) => setRegData({ ...regData, lastName: e.target.value })}
+                        className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[13px] font-medium text-neutral-700">E-posta</label>
+                    <input
+                      required
+                      type="email"
+                      placeholder="ornek@restoran.com"
+                      value={regData.email}
+                      onChange={(e) => setRegData({ ...regData, email: e.target.value })}
+                      className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[13px] font-medium text-neutral-700">Şifre</label>
+                    <input
+                      required
+                      type="password"
+                      placeholder="En az 6 karakter"
+                      value={regData.password}
+                      onChange={(e) => setRegData({ ...regData, password: e.target.value })}
+                      className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="mt-3 h-12 bg-black text-white hover:bg-neutral-800 rounded-full font-medium text-[15px] flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-95 disabled:opacity-50 transition-all"
+                  >
+                    {loading ? "Hesap Oluşturuluyor..." : "Ücretsiz Başlayın"}{" "}
+                    <ChevronRight className="w-5 h-5" />
                   </button>
                 </form>
               )}
@@ -244,22 +355,43 @@ export default function OnboardingPage() {
               {/* Step 1: Verify */}
               {currentStep === 1 && (
                 <form onSubmit={handleVerify} className="flex flex-col gap-4">
-                  <p className="text-sm text-gray-400 mb-2">E-posta adresinize (veya loglara) gönderilen doğrulama kodunu girin.</p>
-                  
                   {!challengeId && (
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-sm text-gray-400">Challenge ID</label>
-                      <input required type="text" value={verData.customChallengeId} onChange={e => setVerData({...verData, customChallengeId: e.target.value})} className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors" />
+                      <label className="text-[13px] font-medium text-neutral-700">Challenge ID</label>
+                      <input
+                        required
+                        type="text"
+                        value={verData.customChallengeId}
+                        onChange={(e) =>
+                          setVerData({ ...verData, customChallengeId: e.target.value })
+                        }
+                        className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition"
+                      />
                     </div>
                   )}
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm text-gray-400">Doğrulama Kodu</label>
-                    <input required type="text" value={verData.verificationCode} onChange={e => setVerData({...verData, verificationCode: e.target.value})} className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors text-center tracking-widest text-lg font-mono" placeholder="123456" />
+                    <label className="text-[13px] font-medium text-neutral-700">Doğrulama Kodu</label>
+                    <input
+                      required
+                      type="text"
+                      maxLength={6}
+                      value={verData.verificationCode}
+                      onChange={(e) =>
+                        setVerData({ ...verData, verificationCode: e.target.value })
+                      }
+                      className="h-14 bg-neutral-50 border border-black/15 rounded-2xl px-4 text-center tracking-[0.4em] text-2xl font-mono font-bold focus:outline-none focus:border-black focus:bg-white transition"
+                      placeholder="123456"
+                    />
                   </div>
 
-                  <button type="submit" disabled={loading} className="mt-4 h-12 bg-gradient-to-r from-orange-500 to-rose-500 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-50 transition-all">
-                    {loading ? 'Doğrulanıyor...' : 'Doğrula'} <ChevronRight className="w-5 h-5" />
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="mt-3 h-12 bg-black text-white hover:bg-neutral-800 rounded-full font-medium text-[15px] flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-95 disabled:opacity-50 transition-all"
+                  >
+                    {loading ? "Doğrulanıyor..." : "Kodu Onayla"}{" "}
+                    <ChevronRight className="w-5 h-5" />
                   </button>
                 </form>
               )}
@@ -268,43 +400,61 @@ export default function OnboardingPage() {
               {currentStep === 2 && (
                 <form onSubmit={handleCompany} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm text-gray-400">İşletme Adı</label>
+                    <label className="text-[13px] font-medium text-neutral-700">İşletme Adı</label>
                     <input
                       required
                       type="text"
+                      placeholder="Örn: Kadıköy Moda Cafe"
                       value={comData.name}
-                      onChange={e => {
+                      onChange={(e) => {
                         const name = e.target.value;
-                        setComData(prev => ({ ...prev, name, slug: createSlug(name) }));
+                        setComData((prev) => ({ ...prev, name, slug: createSlug(name) }));
                       }}
-                      className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors"
+                      className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition"
                     />
                   </div>
+
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm text-gray-400">Panel Adresi</label>
-                    <input
-                      required
-                      type="text"
-                      value={comData.slug}
-                      onChange={e => setComData({...comData, slug: createSlug(e.target.value)})}
-                      className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors"
-                      placeholder="ornek-cafe"
-                    />
+                    <label className="text-[13px] font-medium text-neutral-700">
+                      Panel Bağlantı Adresi (Slug)
+                    </label>
+                    <div className="relative">
+                      <input
+                        required
+                        type="text"
+                        value={comData.slug}
+                        onChange={(e) =>
+                          setComData({ ...comData, slug: createSlug(e.target.value) })
+                        }
+                        className="w-full h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] font-mono focus:outline-none focus:border-black focus:bg-white transition"
+                        placeholder="kadikoy-moda-cafe"
+                      />
+                    </div>
                   </div>
+
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm text-gray-400">Telefon</label>
+                    <label className="text-[13px] font-medium text-neutral-700">
+                      Telefon Numarası
+                    </label>
                     <input
                       type="tel"
                       inputMode="numeric"
                       value={comData.phone}
-                      onChange={e => setComData({...comData, phone: formatPhone(e.target.value)})}
-                      className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors"
+                      onChange={(e) =>
+                        setComData({ ...comData, phone: formatPhone(e.target.value) })
+                      }
+                      className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition"
                       placeholder="05xx xxx xx xx"
                     />
                   </div>
-                  
-                  <button type="submit" disabled={loading} className="mt-4 h-12 bg-gradient-to-r from-orange-500 to-rose-500 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-50 transition-all">
-                    {loading ? 'İşleniyor...' : 'İşletmeyi Oluştur'} <ChevronRight className="w-5 h-5" />
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="mt-3 h-12 bg-black text-white hover:bg-neutral-800 rounded-full font-medium text-[15px] flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-95 disabled:opacity-50 transition-all"
+                  >
+                    {loading ? "Kaydediliyor..." : "İşletmeyi Oluştur"}{" "}
+                    <ChevronRight className="w-5 h-5" />
                   </button>
                 </form>
               )}
@@ -313,66 +463,103 @@ export default function OnboardingPage() {
               {currentStep === 3 && (
                 <form onSubmit={handlePackage} className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm text-gray-400">Paket Seçimi</label>
+                    <label className="text-[13px] font-medium text-neutral-700">Paket Seçimi</label>
                     <select
                       required
                       value={pkgData.packageId}
-                      onChange={e => {
+                      onChange={(e) => {
                         const nextPackage = packages.find((item: any) => item.id === e.target.value);
                         setPkgData({
                           packageId: e.target.value,
-                          billingCycle: nextPackage ? getDefaultBillingCycle(nextPackage) : "Monthly"
+                          billingCycle: nextPackage ? getDefaultBillingCycle(nextPackage) : "Monthly",
                         });
                       }}
-                      className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors text-white appearance-none"
+                      className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition text-black"
                     >
-                      <option value="" disabled>Lütfen bir paket seçin</option>
-                      {packages.map(p => (
-                        <option key={p.id} value={p.id} className="bg-gray-900">
+                      <option value="" disabled>
+                        Lütfen bir paket seçin
+                      </option>
+                      {packages.map((p) => (
+                        <option key={p.id} value={p.id}>
                           {p.name}
                         </option>
                       ))}
                     </select>
                     {packages.length === 0 && (
-                      <p className="text-xs text-amber-300">Aktif ve seçilebilir paket bulunamadı.</p>
+                      <p className="text-xs text-amber-600">Aktif ve seçilebilir paket bulunamadı.</p>
                     )}
                   </div>
-                  
+
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm text-gray-400">Faturalama</label>
+                    <label className="text-[13px] font-medium text-neutral-700">Faturalama Dönemi</label>
                     <select
                       required
                       value={pkgData.billingCycle}
-                      onChange={e => setPkgData({...pkgData, billingCycle: e.target.value})}
-                      className="h-12 bg-black/50 border border-white/10 rounded-xl px-4 focus:outline-none focus:border-orange-500 transition-colors text-white appearance-none"
+                      onChange={(e) => setPkgData({ ...pkgData, billingCycle: e.target.value })}
+                      className="h-12 bg-neutral-50 border border-black/15 rounded-xl px-4 text-[14px] focus:outline-none focus:border-black focus:bg-white transition text-black"
                     >
-                      {availableBillingCycles.map(cycle => (
-                        <option key={cycle.value} value={cycle.value} className="bg-gray-900">
+                      {availableBillingCycles.map((cycle) => (
+                        <option key={cycle.value} value={cycle.value}>
                           {cycle.label}
                         </option>
                       ))}
                     </select>
                   </div>
 
-                  <button type="submit" disabled={loading} className="mt-4 h-12 bg-gradient-to-r from-orange-500 to-rose-500 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 disabled:opacity-50 transition-all">
-                    {loading ? 'İşleniyor...' : 'Kurulumu Tamamla'} <CheckCircle2 className="w-5 h-5" />
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="mt-3 h-12 bg-black text-white hover:bg-neutral-800 rounded-full font-medium text-[15px] flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-95 disabled:opacity-50 transition-all"
+                  >
+                    {loading ? "Kurulum Tamamlanıyor..." : "Kurulumu Tamamla"}{" "}
+                    <CheckCircle2 className="w-5 h-5" />
                   </button>
                 </form>
               )}
             </>
           ) : (
-            <div className="text-center py-8 flex flex-col items-center">
-              <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-6">
+            /* Success Step */
+            <div className="text-center py-6 flex flex-col items-center">
+              <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-5 border border-emerald-100">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
-              <h2 className="text-2xl font-bold mb-2">Kurulum Tamamlandı!</h2>
-              <p className="text-gray-400 mb-8">İşletmeniz başarıyla oluşturuldu. Yönetim paneline giriş yapabilirsiniz.</p>
-              <a href="https://app.displexa.com/login" className="h-12 px-8 bg-white text-black rounded-full font-bold flex items-center justify-center hover:bg-gray-100 transition-colors inline-flex">
-                Panele Git
+              <h2 className="text-[24px] sm:text-[28px] font-bold text-black tracking-tight mb-2">
+                Tebrikler, Kurulum Tamamlandı!
+              </h2>
+              <p className="text-[14px] sm:text-[15px] text-neutral-600 font-light max-w-[400px] mb-8 leading-relaxed">
+                İşletmeniz ve dijital QR menünüz başarıyla oluşturuldu. Artık ürünlerinizi eklemeye ve menünüzü yayınlamaya başlayabilirsiniz.
+              </p>
+              <a
+                href="https://app.displexa.com/login"
+                className="h-12 px-9 bg-black text-white rounded-full font-medium text-[15px] hover:bg-neutral-800 hover:scale-105 active:scale-95 transition-all shadow-lg inline-flex items-center justify-center"
+              >
+                Yönetim Paneline Git
               </a>
             </div>
           )}
         </motion.div>
+
+        {/* Trust Badges */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-[12px] sm:text-[13px] text-neutral-500 font-light">
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck className="w-4 h-4 text-neutral-700" />
+            <span>Kredi kartı gerekmez</span>
+          </div>
+          <div>•</div>
+          <div className="flex items-center gap-1.5">
+            <Sparkles className="w-4 h-4 text-neutral-700" />
+            <span>14 gün ücretsiz deneme</span>
+          </div>
+          <div>•</div>
+          <div>İstediğiniz zaman iptal</div>
+        </div>
+      </div>
+
+      {/* Footer Info */}
+      <div className="w-full max-w-xl mx-auto text-center py-2 text-[12px] text-neutral-400 font-light">
+        <Link href="/" className="hover:text-black transition">
+          ← Morgül Menü Ana Sayfasına Dön
+        </Link>
       </div>
     </div>
   );
@@ -381,10 +568,22 @@ export default function OnboardingPage() {
 function GoogleIcon() {
   return (
     <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.92h6.69a5.74 5.74 0 0 1-2.49 3.77v3.12h4.01c2.34-2.16 3.68-5.32 3.68-8.74z" />
-      <path fill="#34A853" d="M12 24c3.24 0 5.97-1.08 7.96-2.91l-3.87-3a7.5 7.5 0 0 1-11.45-3.96H.53v3.22A12 12 0 0 0 12 24z" />
-      <path fill="#FBBC05" d="M4.64 14.13a7.17 7.17 0 0 1 0-4.26V6.65H.53a12 12 0 0 0 0 10.7l4.11-3.22z" />
-      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.44-3.44A12 12 0 0 0 .53 6.65l4.11 3.22a7.44 7.44 0 0 1 7.36-5.12z" />
+      <path
+        fill="#4285F4"
+        d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.92h6.69a5.74 5.74 0 0 1-2.49 3.77v3.12h4.01c2.34-2.16 3.68-5.32 3.68-8.74z"
+      />
+      <path
+        fill="#34A853"
+        d="M12 24c3.24 0 5.97-1.08 7.96-2.91l-3.87-3a7.5 7.5 0 0 1-11.45-3.96H.53v3.22A12 12 0 0 0 12 24z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M4.64 14.13a7.17 7.17 0 0 1 0-4.26V6.65H.53a12 12 0 0 0 0 10.7l4.11-3.22z"
+      />
+      <path
+        fill="#EA4335"
+        d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.44-3.44A12 12 0 0 0 .53 6.65l4.11 3.22a7.44 7.44 0 0 1 7.36-5.12z"
+      />
     </svg>
   );
 }
@@ -401,7 +600,7 @@ function formatPhone(value: string) {
     normalized.slice(0, 4),
     normalized.slice(4, 7),
     normalized.slice(7, 9),
-    normalized.slice(9, 11)
+    normalized.slice(9, 11),
   ].filter(Boolean);
   return parts.join(" ");
 }
