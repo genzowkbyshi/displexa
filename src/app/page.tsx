@@ -717,10 +717,10 @@ export default function LandingPage() {
             </motion.h2>
 
             {/* Toggle Switch */}
-            <div className="flex items-center p-1 bg-white border border-[#EBE9E9] rounded-full">
+            <div className="w-full sm:w-auto flex items-center p-1 bg-white border border-[#EBE9E9] rounded-full">
               <button
                 onClick={() => setBillingCycle("monthly")}
-                className={`px-4 sm:px-5 py-1.5 text-[13px] sm:text-[14px] font-normal rounded-full transition-all ${
+                className={`flex-1 sm:flex-initial text-center px-4 sm:px-5 py-2 sm:py-1.5 text-[13px] sm:text-[14px] font-normal rounded-full transition-all ${
                   billingCycle === "monthly"
                     ? "bg-black text-white"
                     : "text-black hover:opacity-70"
@@ -730,7 +730,7 @@ export default function LandingPage() {
               </button>
               <button
                 onClick={() => setBillingCycle("yearly")}
-                className={`px-4 sm:px-5 py-1.5 text-[13px] sm:text-[14px] font-normal rounded-full transition-all ${
+                className={`flex-1 sm:flex-initial text-center px-4 sm:px-5 py-2 sm:py-1.5 text-[13px] sm:text-[14px] font-normal rounded-full transition-all ${
                   billingCycle === "yearly"
                     ? "bg-black text-white"
                     : "text-black hover:opacity-70"

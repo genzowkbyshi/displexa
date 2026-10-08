@@ -161,11 +161,11 @@ export default function PricingPage() {
           </motion.p>
 
           {/* Billing Switcher */}
-          <div className="mt-6 sm:mt-8 inline-flex items-center p-1.5 rounded-full bg-neutral-100 border border-black/[0.06]">
+          <div className="mt-6 sm:mt-8 w-full sm:w-auto flex sm:inline-flex items-center p-1.5 rounded-full bg-neutral-100 border border-black/[0.06]">
             <button
               type="button"
               onClick={() => setBillingCycle("monthly")}
-              className={`px-6 py-2 rounded-full text-[14px] font-medium transition-all ${
+              className={`flex-1 sm:flex-initial text-center px-4 sm:px-6 py-2.5 sm:py-2 rounded-full text-[13px] sm:text-[14px] font-medium transition-all ${
                 billingCycle === "monthly"
                   ? "bg-white text-black shadow-sm"
                   : "text-neutral-600 hover:text-black"
@@ -176,14 +176,14 @@ export default function PricingPage() {
             <button
               type="button"
               onClick={() => setBillingCycle("yearly")}
-              className={`px-6 py-2 rounded-full text-[14px] font-medium transition-all flex items-center gap-2 ${
+              className={`flex-1 sm:flex-initial justify-center text-center px-4 sm:px-6 py-2.5 sm:py-2 rounded-full text-[13px] sm:text-[14px] font-medium transition-all flex items-center gap-2 ${
                 billingCycle === "yearly"
                   ? "bg-black text-white shadow-sm"
                   : "text-neutral-600 hover:text-black"
               }`}
             >
               <span>Yıllık Ödeme</span>
-              <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+              <span className={`text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-full ${
                 billingCycle === "yearly" ? "bg-white/20 text-white" : "bg-black text-white"
               }`}>
                 %20 İndirim
